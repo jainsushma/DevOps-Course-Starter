@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # DevOps Apprenticeship: Project Exercise
 
 ## System Requirements
