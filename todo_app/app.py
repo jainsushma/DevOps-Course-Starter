@@ -7,13 +7,13 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 
-@app.route('/items')
+@app.route('/')
 def get_items():
     items = todo_app.data.session_items.get_items()
     return render_template("index.html", items=items)
 
-@app.route('/item', methods=['POST'])
-def add_item():
+@app.route('/add_item', methods=['POST'])
+def add_new_item():
     title = request.form['title']
     todo_app.data.session_items.add_item(title)
     items = todo_app.data.session_items.get_items()
