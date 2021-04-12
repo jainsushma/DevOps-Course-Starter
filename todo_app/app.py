@@ -16,16 +16,9 @@ def get_items():
 @app.route('/add_item', methods=['POST', 'GET'])
 def add_new_item():
     title = request.form['title']
-    if request.method == 'POST':
-        title = request.form.get("title")
-        todo_app.data.session_items.add_item(title)
-        return redirect(os.getenv("HOSTNAME_GITPOD"))
-    # todo_app.data.session_items.add_item(title)
-    # return redirect(f"/")
-    # todo_app.data.session_items.add_item(title)
-    # items = todo_app.data.session_items.get_items()
-    # return render_template("index.html", items=items)
-    # return redirect("/")
+    todo_app.data.session_items.add_item(title)
+    return redirect(os.getenv("HOSTNAME_GITPOD"))
+   
 
 if __name__ == '__main__':
     app.run()
