@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-import todo_app.data.session_items
+from todo_app.data import session_items
 import os
 
 from todo_app.flask_config import Config
