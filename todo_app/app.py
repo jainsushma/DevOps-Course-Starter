@@ -13,7 +13,7 @@ def get_items():
     items = session_items.get_items()
     return render_template("index.html", items=items)
 
-@app.route('/add_item', methods=['POST', 'GET'])
+@app.route('/add_item', methods=['POST'])
 def add_new_item():
     title = request.form['title']
     session_items.add_item(title)
