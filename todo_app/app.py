@@ -1,4 +1,6 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect
+from todo_app.data import session_items
+import os
 
 from todo_app.flask_config import Config
 
@@ -7,9 +9,16 @@ app.config.from_object(Config)
 
 
 @app.route('/')
-def index():
-    return 'Hello World!'
+def get_items():
+    items = session_items.get_items()
+    return render_template("index.html", items=items)
 
+@app.route('/add_item', methods=['POST'])
+def add_new_item():
+    title = request.form['title']
+    session_items.add_item(title)
+    return redirect(os.getenv("TODO_HOSTNAME"))
+   
 
 if __name__ == '__main__':
     app.run()
