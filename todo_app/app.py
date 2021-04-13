@@ -17,7 +17,7 @@ def get_items():
 def add_new_item():
     title = request.form['title']
     session_items.add_item(title)
-    return redirect(os.getenv("HOSTNAME_GITPOD"))
+    return redirect(os.getenv("HOSTNAME"))
    
 
 if __name__ == '__main__':
