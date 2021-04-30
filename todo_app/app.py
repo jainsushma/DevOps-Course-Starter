@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from todo_app.data import session_items
+from todo_app.trello_board_actions import Trello_Board_Actions
 import os
 import requests
 
@@ -11,17 +12,9 @@ app.config.from_object(Config)
 
 @app.route('/')
 def get_items():
-    # items = session_items.Session_Items(os.getenv("SECRET_KEY"), os.getenv("TOKEN"))
-    auth = {"key":os.getenv("SECRET_KEY"), "token":os.getenv("TOKEN"), "cards":"open"}
-    card_lists = requests.get(f"https://api.trello.com/1/boards/{os.getenv('BOARD_ID')}/lists", params=auth).json()
-    # items.get_todoItems(os.getenv("SECRET_KEY"), os.getenv("TOKEN"))
+    card_lists = Trello_Board_Actions().getBoardLists()
     print(card_lists)
-    items = []
-    for list in card_lists:
-        for card in list["cards"]:
-            items.append({"title":card["name"], "status":card["closed"]})
-
-    return render_template("index.html", items=items)
+    return render_template("index.html", items=Trello_Board_Actions().getCardsWithStatus())
 
 @app.route('/add_item', methods=['POST'])
 def add_new_item():
