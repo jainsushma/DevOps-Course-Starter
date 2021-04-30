@@ -20,9 +20,9 @@ class Trello_Board_Actions:
 
     def getCardsWithStatus(self):
         "Get the card on a list and its status"
-        card_lists = Trello_Board_Actions.getBoardLists(self)
+        board_lists = Trello_Board_Actions.getBoardLists(self)
         items = []
-        for list in card_lists:
+        for list in board_lists:
             for card in list["cards"]:
                 items.append({"title":card["name"], "status":card["closed"]})
         return items

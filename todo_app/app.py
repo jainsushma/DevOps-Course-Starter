@@ -12,8 +12,8 @@ app.config.from_object(Config)
 
 @app.route('/')
 def get_items():
-    card_lists = Trello_Board_Actions().getBoardLists()
-    print(card_lists)
+    lists_on_board = Trello_Board_Actions().getBoardLists()
+    print(lists_on_board)
     return render_template("index.html", items=Trello_Board_Actions().getCardsWithStatus())
 
 @app.route('/add_item', methods=['POST'])
