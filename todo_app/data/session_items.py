@@ -1,9 +1,34 @@
 from flask import session
+import requests
 
 _DEFAULT_ITEMS = [
     { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
     { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
 ]
+
+class Board_Items:
+    " Trello util to create board, card, copy card and add members"    
+
+    def __init__(self,key,token):
+        self.auth = {'key':key,'token':token}
+        self.url= "https://5000-amaranth-reptile-djhg7axq.ws-eu03.gitpod.io/"
+        self.headers = {
+            'type': "type",
+            'content-type': "application/json"
+                }
+
+    def get_todoItems(self):
+        """
+        Fetches all saved items from the session.
+
+        Returns:
+            list: The list of saved items.
+        """
+
+        board_details = requests.get(self.url, params=self.auth)
+        print(board_details.json())
+        return board_details.json()
+        # return session.get('items', _DEFAULT_ITEMS.copy())
 
 
 def get_items():
