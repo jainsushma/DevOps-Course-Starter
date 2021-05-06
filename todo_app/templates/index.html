@@ -13,14 +13,21 @@
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
         {% for item in items %}
-          <li>{{ item.title }} - {{item.status}}</li>
+          <!-- <li>{{ item.title }} - {{item.status}}</li> -->
+          <li>{{ item.title }} -
+             <form action = "/complete_item/{{ item.id }}" method = "POST">
+              <input type="submit" value="Doing">
+              </form>
+          </li>
         {% endfor %}
       </ul>
+        
         <form action = "/add_item" method = "POST">
           <label for="Add New Item">Add New Item: </label>
           <input id="title" type="text" name="title" required>
           <input type="submit" value="OK">
       </form>
-    </div>
+
+          </div>
   </div>
 {% endblock %}
