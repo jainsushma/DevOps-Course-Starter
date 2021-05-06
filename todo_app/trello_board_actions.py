@@ -30,10 +30,11 @@ class Trello_Board_Actions:
     def addNewCard(self, title):
         "Add a new card on the board"
         result_flag = False
-        items = Trello_Board_Actions.getBoardLists(self)
+        # items = Trello_Board_Actions.getBoardLists(self)
         self.payload = self.auth.copy()
         self.payload['name'] = title
-        self.payload['idList'] = items[0]["cards"][0]["idList"]
+        # self.payload['idList'] = items[0]["cards"][0]["idList"]
+        self.payload['idList'] = Trello_Board_Actions.getListIdByName(self, "doing")
         add_new_card_url = self.url + "/cards"
 
         response = requests.post(url=add_new_card_url,data=self.payload)
@@ -41,17 +42,6 @@ class Trello_Board_Actions:
             result_flag = True
 
         return result_flag
-    
-    def getCardIdByName(self,card_name):
-        "Get the card id"
-        card_id = None
-        card_url = self.url + '/boards/' + os.getenv('BOARD_ID') +'/cards'
-        card_details = requests.get(url=card_url,params=self.auth)
-        card_details = card_details.json()
-        for i in range(len(card_details)):
-            if card_details[i]['name'] == card_name:
-                card_id = card_details[i]['id']
-        return card_id 
 
     def getListIdByName(self,list_name):
         "Get the list id"
@@ -63,8 +53,9 @@ class Trello_Board_Actions:
 
     def isCardOnList(self, list_name, card_id):
         list_id = Trello_Board_Actions.getListIdByName(self, list_name)
-        list_url = self.url + '/boards/' + os.getenv('BOARD_ID') +'/'+ list_id + '/cards'
+        list_url = self.url + '/lists/' + list_id + '/cards'
         cards_on_the_list = requests.get(url=list_url,params=self.auth)
+        cards_on_the_list = cards_on_the_list.json()
         for i in range(len(cards_on_the_list)):
             if cards_on_the_list[i]['id'] == card_id:
                 return True
@@ -74,7 +65,7 @@ class Trello_Board_Actions:
         "Change card status"
         result_flag = False
         new_list_id = Trello_Board_Actions.getListIdByName(self, "done")
-        update_list_url = self.url + '/cards' + id
+        update_list_url = self.url + '/cards/' + id
         self.payload = self.auth.copy()
         self.payload['idList'] = new_list_id
         if Trello_Board_Actions.isCardOnList(self, "doing", id):

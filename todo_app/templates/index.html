@@ -16,7 +16,7 @@
           <!-- <li>{{ item.title }} - {{item.status}}</li> -->
           <li>{{ item.title }} -
              <form action = "/complete_item/{{ item.id }}" method = "POST">
-              <input type="submit" value="Doing">
+              <input type="submit" value="{{ item.status }}">
               </form>
           </li>
         {% endfor %}
