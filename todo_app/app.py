@@ -22,8 +22,8 @@ def add_new_item():
     Trello_Board_Actions().addNewCard(title)
     return redirect(os.getenv("TODO_HOSTNAME"))
 
-@app.route('/complete_item/<id>', methods=['POST'])
-def complete_item(id):
+@app.route('/move_item/<id>', methods=['POST'])
+def move_item(id):
     Trello_Board_Actions().changeCardStatus(id)
     return redirect(os.getenv("TODO_HOSTNAME"))
    

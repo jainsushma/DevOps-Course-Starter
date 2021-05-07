@@ -30,11 +30,9 @@ class Trello_Board_Actions:
     def addNewCard(self, title):
         "Add a new card on the board"
         result_flag = False
-        # items = Trello_Board_Actions.getBoardLists(self)
         self.payload = self.auth.copy()
         self.payload['name'] = title
-        # self.payload['idList'] = items[0]["cards"][0]["idList"]
-        self.payload['idList'] = Trello_Board_Actions.getListIdByName(self, "doing")
+        self.payload['idList'] = Trello_Board_Actions.getListIdByName(self, "to-do")
         add_new_card_url = self.url + "/cards"
 
         response = requests.post(url=add_new_card_url,data=self.payload)
@@ -64,14 +62,18 @@ class Trello_Board_Actions:
     def changeCardStatus(self, id):
         "Change card status"
         result_flag = False
-        new_list_id = Trello_Board_Actions.getListIdByName(self, "done")
+        new_list_id = 0
+        if Trello_Board_Actions.isCardOnList(self, "to-do", id):
+            new_list_id = Trello_Board_Actions.getListIdByName(self, "doing")
+        elif Trello_Board_Actions.isCardOnList(self, "doing", id):
+            new_list_id = Trello_Board_Actions.getListIdByName(self, "done")
+       
         update_list_url = self.url + '/cards/' + id
         self.payload = self.auth.copy()
         self.payload['idList'] = new_list_id
-        if Trello_Board_Actions.isCardOnList(self, "doing", id):
-            response = requests.put(url=update_list_url,data=self.payload)
-            if response.status_code == 200:
-                result_flag = True
+        response = requests.put(url=update_list_url,data=self.payload)
+        if response.status_code == 200:
+            result_flag = True
 
         return result_flag
 
