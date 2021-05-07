@@ -9,7 +9,7 @@
 
   <h1>New Item</h1> 
     <div>Add a new todo item: 
-        <form action="{{ url_for('add_new_item') }}" method="POST"> 
+        <form action="{{url_for('add_new_item')}}" method="POST"> 
             <input id="title" type="text" name="title" required> 
             <input type="submit" value="Add Item" class="button"> 
         </form> 
@@ -26,17 +26,17 @@
             <table>
               {% if item.status == 'done' %}
                 <tr>
-                  <form class="done" action="/move_item/{{item.id}}" method="POST"><input type="submit" value="Done" id="{{item.id}}_complete"></form>
+                  <form class="done" action="{{url_for('move_item', id=item.id)}}" method="POST"><input type="submit" value="Done" id="{{item.id}}_complete"></form>
                 </tr>
               {% endif %}
               {% if item.status == 'doing' %}
               <tr>
-                <form class="doing" action="/move_item/{{item.id}}" method="POST"><input type="submit" value="Doing" id="{{item.id}}_not_complete"></form>
+                <form class="doing" action="{{url_for('move_item', id=item.id)}}" method="POST"><input type="submit" value="Doing" id="{{item.id}}_not_complete"></form>
               </tr>
             {% endif %}
             {% if item.status == 'to-do' %}
               <tr>
-                <form class="to-do" action="/move_item/{{item.id}}" method="POST"><input type="submit" value="To-Do" id="{{item.id}}_to_do"></form>
+                <form class="to-do" action="{{url_for('move_item', id=item.id)}}" method="POST"><input type="submit" value="To-Do" id="{{item.id}}_to_do"></form>
               </tr>
             {% endif %}
             </table>
