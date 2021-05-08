@@ -2,7 +2,7 @@ import os
 import requests
 
 class Trello_Board_Actions:
-    " Trello util to get lists on a board, get the cards and their statuses"    
+    " Trello util to get lists on a board, get cards and their statuses, update/delete a card"    
 
     def __init__(self):
         self.auth = {'key':os.getenv("SECRET_KEY"), 'token':os.getenv("TOKEN"), 'cards':"open"}
@@ -13,12 +13,11 @@ class Trello_Board_Actions:
                 }
 
     def getBoardLists(self):
-        "Get the lists for a board id"
-        board_list_url = self.url + '/boards/' + os.getenv('BOARD_ID') +'/lists'
-        board_lists = requests.get(url=board_list_url,params=self.auth)
+        "Get the lists for a given board id"
+        board_lists = requests.get(url=self.url + '/boards/' + os.getenv('BOARD_ID') +'/lists', params=self.auth)
         return board_lists.json()
 
-    def getCardsWithStatus(self):
+    def getCards(self):
         "Get the card on a list and its status"
         board_lists = Trello_Board_Actions.getBoardLists(self)
         items = []
@@ -33,12 +32,9 @@ class Trello_Board_Actions:
         self.payload = self.auth.copy()
         self.payload['name'] = title
         self.payload['idList'] = Trello_Board_Actions.getListIdByName(self, "to-do")
-        add_new_card_url = self.url + "/cards"
-
-        response = requests.post(url=add_new_card_url,data=self.payload)
+        response = requests.post(url=self.url + "/cards", data=self.payload)
         if response.status_code == 200:
             result_flag = True
-
         return result_flag
 
     def getListIdByName(self,list_name):
@@ -50,28 +46,36 @@ class Trello_Board_Actions:
         return list_id 
 
     def isCardOnList(self, list_name, card_id):
-        list_id = Trello_Board_Actions.getListIdByName(self, list_name)
-        list_url = self.url + '/lists/' + list_id + '/cards'
-        cards_on_the_list = requests.get(url=list_url,params=self.auth)
+        "Check if the card is on given list name"
+        cards_on_the_list = requests.get(url=self.url + '/lists/' + Trello_Board_Actions.getListIdByName(self, list_name) + '/cards', params=self.auth)
         cards_on_the_list = cards_on_the_list.json()
         for i in range(len(cards_on_the_list)):
             if cards_on_the_list[i]['id'] == card_id:
                 return True
         return False
 
-    def changeCardStatus(self, id):
-        "Change card status"
+    def deleteCard(self, card_id):
+        "Delete any card"
+        result_flag = False
+        response = requests.delete(url=self.url + '/cards/' + card_id, params=self.auth)
+        if response.status_code == 200:
+            result_flag = True
+        return result_flag
+
+    def updateCardStatus(self, id):
+        "Update card status"
         result_flag = False
         new_list_id = 0
         if Trello_Board_Actions.isCardOnList(self, "to-do", id):
             new_list_id = Trello_Board_Actions.getListIdByName(self, "doing")
         elif Trello_Board_Actions.isCardOnList(self, "doing", id):
             new_list_id = Trello_Board_Actions.getListIdByName(self, "done")
+        else:
+            new_list_id = Trello_Board_Actions.getListIdByName(self, "to-do")
        
-        update_list_url = self.url + '/cards/' + id
         self.payload = self.auth.copy()
         self.payload['idList'] = new_list_id
-        response = requests.put(url=update_list_url,data=self.payload)
+        response = requests.put(url=self.url + '/cards/' + id, data=self.payload)
         if response.status_code == 200:
             result_flag = True
 

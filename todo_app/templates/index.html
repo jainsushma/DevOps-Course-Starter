@@ -10,36 +10,62 @@
   <h1>New Item</h1> 
     <div>Add a new todo item: 
         <form action="{{url_for('add_new_item')}}" method="POST"> 
-            <input id="title" type="text" name="title" required> 
-            <input type="submit" value="Add Item" class="button"> 
-        </form> 
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <input id="title" type="text" class="form-control" placeholder="Name" name="title" required>
+            </div>
+            <button type="submit" class="btn btn-success">Add Item</button>
+          </div>        
+        </form>      
     </div> 
-
+    
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
+      <ul class="list-group mb-4" style="list-style-type:none;">
         <!-- List the todo items here -->
         {% for item in items %}
-          <!-- <li>{{ item.title }} - {{item.status}}</li> -->
-          <li>{{ item.title }} -
-            <table>
-              {% if item.status == 'done' %}
-                <tr>
-                  <form class="done" action="{{url_for('move_item', id=item.id)}}" method="POST"><input type="submit" value="Done" id="{{item.id}}_complete"></form>
-                </tr>
-              {% endif %}
-              {% if item.status == 'doing' %}
-              <tr>
-                <form class="doing" action="{{url_for('move_item', id=item.id)}}" method="POST"><input type="submit" value="Doing" id="{{item.id}}_not_complete"></form>
-              </tr>
+          <li>
+            <div class="col-sm-10">
+              <div style="text-align:left">
+                {{ item.title }}
+              </div>
+              <!-- <div style="text-align:right">
+                <button type="button" class="btn btn-lg btn-primary" disabled>{{ item.status}}</button>
+              </div> -->
+            </div>
+           
+            <div class="form-group row">
+              <div class="col-sm-10">
+                {% if item.status == 'to-do' %}
+                <div style="text-align:right">
+                  <button type="button" class="btn btn-secondary btn-sm" disabled>{{ item.status}}</button>
+                </div>
+                <form action="{{url_for('move_item', id=item.id)}}" method="POST">
+                  <button type="submit" class="btn btn-success btn-sm">Start</button>
+                </form>
             {% endif %}
-            {% if item.status == 'to-do' %}
-              <tr>
-                <form class="to-do" action="{{url_for('move_item', id=item.id)}}" method="POST"><input type="submit" value="To-Do" id="{{item.id}}_to_do"></form>
-              </tr>
+            {% if item.status == 'doing' %}
+              <div style="text-align:right">
+                <button type="button" class="btn btn-primary btn-sm" disabled>{{ item.status}}</button>
+              </div>
+              <form action="{{url_for('move_item', id=item.id)}}" method="POST">
+                <button type="submit" class="btn btn-primary btn-sm">Complete</button>
+              </form>
             {% endif %}
-            </table>
+            {% if item.status == 'done' %}
+              <div style="text-align:right">
+                <button type="button" class="btn btn-success btn-sm" disabled>{{ item.status}}</button>
+              </div>
+                <form action="{{url_for('move_item', id=item.id)}}" method="POST">
+                  <button type="submit" class="btn btn-secondary btn-sm">Mark as Complete</button>
+                </form>
+            {% endif %}  
+              </div>
+              <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </div>
           </li>
         {% endfor %}
       </ul>
