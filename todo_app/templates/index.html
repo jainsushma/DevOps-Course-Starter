@@ -58,7 +58,7 @@
                 <button type="button" class="btn btn-success btn-sm" disabled>{{ item.status}}</button>
               </div>
                 <form action="{{url_for('move_item', id=item.id)}}" method="POST">
-                  <button type="submit" class="btn btn-secondary btn-sm">Mark as Complete</button>
+                  <button type="submit" class="btn btn-secondary btn-sm">Mark as Incomplete</button>
                 </form>
             {% endif %}  
               </div>
