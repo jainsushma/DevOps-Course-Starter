@@ -24,7 +24,7 @@
       <h2>Items</h2>
       <ul class="list-group mb-4" style="list-style-type:none;">
         <!-- List the todo items here -->
-        {% for item in items %}
+        {% for item in model.items %}
           <li>
             <div class="col-sm-10">
               <div style="text-align:left">
@@ -34,8 +34,10 @@
                   <div class="row">
                     <form action="{{url_for('move_item', id=item.id)}}" method="POST">
                       <button type="submit" class="btn btn-success btn-sm">Start</button>
-                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                   </form>
+                  <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
                   </div>
             {% endif %}
             {% if item.status == 'doing' %}
@@ -43,6 +45,8 @@
                 <div class="row">
                   <form action="{{url_for('move_item', id=item.id)}}" method="POST">
                     <button type="submit" class="btn btn-primary btn-sm">Complete</button>
+                  </form>
+                  <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                   </form>
                 </div>
@@ -52,6 +56,8 @@
                 <div class="row">
                   <form action="{{url_for('move_item', id=item.id)}}" method="POST">
                     <button type="submit" class="btn btn-secondary btn-sm">Mark as Incomplete</button>
+                  </form>
+                  <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                   </form>
                 </div>

@@ -1,6 +1,8 @@
 import os
 import requests
 from todo_app.item import Item
+from todo_app.view_model import ViewModel
+
 
 class Trello_Board_Actions:
     " Trello util to get lists on a board, get cards and their statuses, update/delete a card"    
@@ -36,8 +38,6 @@ class Trello_Board_Actions:
         "Simple attempt to get all cards from Trello."
         response = requests.get(f"https://api.trello.com/1/boards/{os.getenv('BOARD_ID')}/cards", params=self.auth)
         todos = response.json()
-        # for card in todos:
-        #     print(card['name'], card['status'])
         return todos
 
     def addNewCard(self, title):
