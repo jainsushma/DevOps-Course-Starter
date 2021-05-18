@@ -30,4 +30,4 @@ def delete_item(id):
     return redirect(os.getenv("TODO_HOSTNAME"))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

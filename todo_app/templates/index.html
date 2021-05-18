@@ -21,53 +21,75 @@
     
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>Todo Items</h2>
       <ul class="list-group mb-4" style="list-style-type:none;">
         <!-- List the todo items here -->
-        {% for item in model.items %}
+        {% for item in model.todo_items %}
           <li>
             <div class="col-sm-10">
               <div style="text-align:left">
                 {{ item.title }}
-                {% if item.status == 'to-do' %}
                   <button type="button" class="btn btn-secondary btn-sm float-right" disabled>{{ item.status}}</button>
                   <div class="row">
                     <form action="{{url_for('move_item', id=item.id)}}" method="POST">
                       <button type="submit" class="btn btn-success btn-sm">Start</button>
-                  </form>
-                  <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                </form>
+                    </form>
+                    <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
+                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
                   </div>
-            {% endif %}
-            {% if item.status == 'doing' %}
-                <button type="button" class="btn btn-primary btn-sm float-right" disabled>{{ item.status}}</button>
-                <div class="row">
-                  <form action="{{url_for('move_item', id=item.id)}}" method="POST">
-                    <button type="submit" class="btn btn-primary btn-sm">Complete</button>
-                  </form>
-                  <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                  </form>
-                </div>
-            {% endif %}
-            {% if item.status == 'done' %}
-                <button type="button" class="btn btn-success btn-sm float-right" disabled>{{ item.status}}</button>
-                <div class="row">
-                  <form action="{{url_for('move_item', id=item.id)}}" method="POST">
-                    <button type="submit" class="btn btn-secondary btn-sm">Mark as Incomplete</button>
-                  </form>
-                  <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                  </form>
-                </div>
-            {% endif %}  
-          </div>
-        </div>
+              </div>
+            </div>
           </li>
-        </br>
+          </br>
+        {% endfor %}
+        </ul>
+      <h2>Doing Items</h2>
+      <ul class="list-group mb-4" style="list-style-type:none;">
+        <!-- List the todo items here -->
+        {% for item in model.doing_items %}
+          <li>
+            <div class="col-sm-10">
+              <div style="text-align:left">
+                {{ item.title }}
+                  <button type="button" class="btn btn-primary btn-sm float-right" disabled>{{ item.status}}</button>
+                  <div class="row">
+                    <form action="{{url_for('move_item', id=item.id)}}" method="POST">
+                      <button type="submit" class="btn btn-primary btn-sm">Complete</button>
+                    </form>
+                    <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
+                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                  </div>
+              </div>
+            </div>
+          </li>
+          </br>
+        {% endfor %}
+        </ul>
+      <h2>Done Items</h2>
+      <ul class="list-group mb-4" style="list-style-type:none;">
+        <!-- List the done items here -->
+        {% for item in model.done_items %}
+          <li>
+            <div class="col-sm-10">
+              <div style="text-align:left">
+                {{ item.title }}
+                  <button type="button" class="btn btn-success btn-sm float-right" disabled>{{ item.status}}</button>
+                  <div class="row">
+                    <form action="{{url_for('move_item', id=item.id)}}" method="POST">
+                      <button type="submit" class="btn btn-secondary btn-sm">Mark as Incomplete</button>
+                    </form>
+                    <form action="{{url_for('delete_item', id=item.id)}}" method="POST">
+                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                  </div>
+              </div>
+            </div>
+          </li>
+          </br>
         {% endfor %}
       </ul>
-      </div>
     </div>
+  </div>
 {% endblock %}
