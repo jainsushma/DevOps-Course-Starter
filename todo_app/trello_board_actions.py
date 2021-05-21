@@ -2,7 +2,7 @@ import os
 import requests
 from todo_app.item import Item
 
-class Trello_Board_Actions:
+class TrelloBoardActions:
     " Trello util to get lists on a board, get cards and their statuses, update/delete a card"    
 
     def __init__(self):
@@ -43,7 +43,7 @@ class Trello_Board_Actions:
         result_flag = False
         self.payload = self.auth.copy()
         self.payload['name'] = title
-        self.payload['idList'] = Trello_Board_Actions.getListIdByName(self, "to-do")
+        self.payload['idList'] = self.getLstIdByName("to-do")
         response = requests.post(url=self.url + "/cards", data=self.payload)
         if response.status_code == 200:
             result_flag = True
@@ -51,7 +51,7 @@ class Trello_Board_Actions:
 
     def getListIdByName(self,list_name):
         "Get the list id"
-        lists_on_board = Trello_Board_Actions.getBoardLists(self)
+        lists_on_board = self.getBardLists()
         for list in lists_on_board:
             if list['name'] == list_name:
                 return list['id']
@@ -59,7 +59,7 @@ class Trello_Board_Actions:
 
     def isCardOnList(self, list_name, card_id):
         "Check if the card is on given list name"
-        cards_on_the_list = requests.get(url=self.url + '/lists/' + Trello_Board_Actions.getListIdByName(self, list_name) + '/cards', params=self.auth)
+        cards_on_the_list = requests.get(url=self.url + '/lists/' + self.getLstIdByName(list_name) + '/cards', params=self.auth)
         cards_on_the_list = cards_on_the_list.json()
         for card in (cards_on_the_list):
             if card['id'] == card_id:
@@ -78,12 +78,12 @@ class Trello_Board_Actions:
         "Update card status"
         result_flag = False
         new_list_id = 0
-        if Trello_Board_Actions.isCardOnList(self, "to-do", id):
-            new_list_id = Trello_Board_Actions.getListIdByName(self, "doing")
-        elif Trello_Board_Actions.isCardOnList(self, "doing", id):
-            new_list_id = Trello_Board_Actions.getListIdByName(self, "done")
+        if self.isCadOnList("to-do", id):
+            new_list_id = self.getLstIdByName("doing")
+        elif self.isCadOnList("doing", id):
+            new_list_id = self.getLstIdByName("done")
         else:
-            new_list_id = Trello_Board_Actions.getListIdByName(self, "to-do")
+            new_list_id = self.getLstIdByName("to-do")
        
         self.payload = self.auth.copy()
         self.payload['idList'] = new_list_id
