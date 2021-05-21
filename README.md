@@ -38,6 +38,11 @@ BOARD_ID=<your_board_id>
 SECRET_KEY=<your_key>
 TOKEN=<your_token>
 
+The board should have three lists added:
+"to-do"
+"doing"
+"done"
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
