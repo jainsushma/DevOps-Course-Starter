@@ -8,10 +8,6 @@ class TrelloBoardActions:
     def __init__(self):
         self.auth = {'key':os.getenv("SECRET_KEY"), 'token':os.getenv("TOKEN"), 'cards':"open"}
         self.url= "https://api.trello.com/1"
-        self.headers = {
-            'type': "type",
-            'content-type': "application/json"
-                }
 
     def get_board_lists(self):
         "Get the lists for a given board id"
