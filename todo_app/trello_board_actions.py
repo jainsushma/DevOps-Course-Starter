@@ -61,8 +61,8 @@ class Trello_Board_Actions:
         "Check if the card is on given list name"
         cards_on_the_list = requests.get(url=self.url + '/lists/' + Trello_Board_Actions.getListIdByName(self, list_name) + '/cards', params=self.auth)
         cards_on_the_list = cards_on_the_list.json()
-        for i in range(len(cards_on_the_list)):
-            if cards_on_the_list[i]['id'] == card_id:
+        for card in (cards_on_the_list):
+            if card['id'] == card_id:
                 return True
         return False
 
