@@ -36,8 +36,6 @@ class Trello_Board_Actions:
         "Simple attempt to get all cards from Trello."
         response = requests.get(f"https://api.trello.com/1/boards/{os.getenv('BOARD_ID')}/cards", params=self.auth)
         todos = response.json()
-        # for card in todos:
-        #     print(card['name'], card['status'])
         return todos
 
     def addNewCard(self, title):
