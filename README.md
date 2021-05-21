@@ -30,7 +30,18 @@ You'll also need to clone a new `.env` file from the `.env.template` to store lo
 $ cp .env.template .env  # (first time only)
 ```
 
-The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
+The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). 
+
+In order to run this application you will require the appropriate trello information in the .env file. They are as follows
+
+BOARD_ID=<your_board_id>
+SECRET_KEY=<your_key>
+TOKEN=<your_token>
+
+The board should have three lists added:
+"to-do"
+"doing"
+"done"
 
 ## Running the App
 
