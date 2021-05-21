@@ -20,7 +20,7 @@ class Trello_Board_Actions:
 
     def getCards(self):
         "Get the card on a list and its status"
-        board_lists = Trello_Board_Actions.getBoardLists(self)
+        board_lists = self.getBoardLists()
         items = []
         for list in board_lists:
             for card in list["cards"]:
