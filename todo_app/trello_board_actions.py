@@ -52,10 +52,10 @@ class Trello_Board_Actions:
     def getListIdByName(self,list_name):
         "Get the list id"
         lists_on_board = Trello_Board_Actions.getBoardLists(self)
-        for i in range(len(lists_on_board)):
-            if lists_on_board[i]['name'] == list_name:
-                list_id = lists_on_board[i]['id']
-        return list_id 
+        for list in lists_on_board:
+            if list['name'] == list_name:
+                return list['id']
+        return None 
 
     def isCardOnList(self, list_name, card_id):
         "Check if the card is on given list name"
