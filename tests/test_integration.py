@@ -1,5 +1,4 @@
-import pytest
-import os
+import pytest, os
 from dotenv import find_dotenv, load_dotenv
 import todo_app.app as app
 from unittest.mock import patch, Mock
