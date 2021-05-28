@@ -1,8 +1,11 @@
-import pytest, os, requests, time
+import pytest
+import os
+import requests
+import time
 from threading import Thread
 import todo_app.app as app
 from selenium import webdriver
-from get_gecko_driver import GetGeckoDriver
+from selenium.webdriver import Firefox
 
 # Install the driver:
 # Downloads the latest GeckoDriver version
@@ -43,7 +46,7 @@ def create_trello_board(name):
     params = {"key": os.getenv('SECRET_KEY'),
               "token": os.getenv('TOKEN'), "name": name}
     response = requests.post(
-        f"https://api.trello.com/1/boards", params=params)
+        f"https://api.trello.com/1/boards/", params=params)
     return response.json()["id"]
              
 
