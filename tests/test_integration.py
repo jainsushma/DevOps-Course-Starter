@@ -22,13 +22,17 @@ def test_index_page(mock_get_requests, client):
     # Replace call to requests.get(url) with our own function
     mock_get_requests.side_effect = mock_get_lists
     response = client.get('/')
-    print(response.status)
+    print(response.data.decode())
+    assert response.status_code == 200
+    assert "To-Do App" in response.data.decode()
+    assert "test1" in response.data.decode()
+    
 
-def mock_get_lists(url, params):
-    if url == f'https://api.trello.com/1/boards/{os.getenv("BOARD_ID")}/lists?cards=open&key={os.getenv("SECRET_KEY")}&token={os.getenv("TOKEN")}': 
+def mock_get_lists(url, params=None):
+    if url == f'https://api.trello.com/1/boards/{os.getenv("BOARD_ID")}/lists': 
         response = Mock()
         # sample_trello_lists_response should point to some test response data
-        response.json.return_value = sample_trello_lists_response
+        response.json.return_value = sample_trello_lists_response()
         return response
     return None
 
@@ -38,18 +42,34 @@ def sample_trello_lists_response():
             "id": "doing-1234",
             "name": "doing",
             "idBoard": "test_board",
-            "cards": []
+            "cards": [
+                {
+                "id": "1",
+                "name": "test1",
+                }
+
+            ]
         },
         {
             "id": "done-1234",
             "name": "done",
             "idBoard": "test_board",
-            "cards": []
+            "cards": [
+                {
+                "id": "1",
+                "name": "test2",
+                }
+            ]
         },
         {
             "id": "to-do-1234",
             "name": "to-do",
             "idBoard": "test_board",
-            "cards": []
+            "cards": [
+                {
+                "id": "1",
+                "name": "test3",
+                }
+            ]
         }
     ]
