@@ -7,19 +7,6 @@ import todo_app.app as app
 from selenium import webdriver
 from selenium.webdriver import Firefox
 
-# Install the driver:
-# Downloads the latest GeckoDriver version
-# Adds the downloaded GeckoDriver to path
-# get_driver = GetGeckoDriver()
-# get_driver.install()
-
-# Use the installed GeckoDriver with Selenium
-# driver = webdriver.Firefox()
-# driver.get("https://google.com")
-# time.sleep(3)
-# driver.quit()
-
-
 @pytest.fixture(scope="module")
 def driver():
     with webdriver.Firefox() as driver:
@@ -34,7 +21,7 @@ def app_with_temp_board():
     application = app.create_app()
     # start the app in its own thread.
     thread = Thread(target=lambda: application.run(use_reloader=False))
-    thread.daemon = True
+    thread.daenmon = True
     thread.start()
     yield application
 
@@ -60,3 +47,9 @@ def delete_trello_board(id):
 def test_task_journey(driver, app_with_temp_board):
     driver.get('http://localhost:5000/')
     assert driver.title == 'To-Do App'
+
+      # Create a task
+    driver.find_element_by_id("title").send_keys("New Item")
+    driver.find_element_by_class_name('btn-success').click()
+    time.sleep(3)
+    print("Tested")
