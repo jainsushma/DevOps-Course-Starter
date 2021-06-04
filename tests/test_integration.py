@@ -51,7 +51,7 @@ def sample_trello_lists_response():
             ]
         },
         {
-            "id": "done-1234",
+            "id": "Done-1234",
             "name": "done",
             "idBoard": "test_board",
             "cards": [
@@ -62,7 +62,7 @@ def sample_trello_lists_response():
             ]
         },
         {
-            "id": "to-do-1234",
+            "id": "To-Do-1234",
             "name": "to-do",
             "idBoard": "test_board",
             "cards": [
