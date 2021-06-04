@@ -24,12 +24,13 @@ def app_with_temp_board():
     application = app.create_app()
     # start the app in its own thread.
     thread = Thread(target=lambda: application.run(use_reloader=False))
-    thread.daenmon = True
+    thread.daemon = True
     thread.start()
     yield application
 
     # Tear Down
     thread.join(1)
+    time.sleep(3)
     delete_trello_board(board_id)
 
 def create_trello_board(name):
