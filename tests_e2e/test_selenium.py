@@ -3,6 +3,7 @@ import os
 import requests
 import time
 from threading import Thread
+from dotenv import find_dotenv, load_dotenv
 import todo_app.app as app
 from selenium import webdriver
 from selenium.webdriver import Firefox
@@ -14,6 +15,8 @@ def driver():
 
 @pytest.fixture(scope='module')
 def app_with_temp_board():
+    file_path = find_dotenv('.env')
+    load_dotenv(file_path, override=True)
     # Create the new board & update the board id environment variable
     board_id = create_trello_board("Test Board")
     os.environ['BOARD_ID'] = board_id
@@ -50,6 +53,8 @@ def test_task_journey(driver, app_with_temp_board):
 
       # Create a task
     driver.find_element_by_id("title").send_keys("New Item")
-    driver.find_element_by_class_name('btn-success').click()
-    time.sleep(3)
+    # driver.find_element_by_xpath("//a[contains(text(),'Add Item')]").click()
+    driver.find_element_by_id("addItem").click()
+    # time.sleep(3)
     print("Tested")
+    # driver.quit()
