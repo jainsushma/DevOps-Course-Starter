@@ -23,7 +23,7 @@
   <div class="row">
     <div class="col-md-12">
       <h2>Todo Items</h2>
-      <ul class="list-group mb-4" style="list-style-type:none;">
+      <ul class="list-group mb-4" id="To-Do-Items" style="list-style-type:none;">
         <!-- List the todo items here -->
         {% for item in model.todo_items %}
           <li>
@@ -46,7 +46,7 @@
         {% endfor %}
         </ul>
       <h2>Doing Items</h2>
-      <ul class="list-group mb-4" style="list-style-type:none;">
+      <ul class="list-group mb-4" id="Doing-Items" style="list-style-type:none;">
         <!-- List the todo items here -->
         {% for item in model.doing_items %}
           <li>
@@ -69,7 +69,7 @@
         {% endfor %}
         </ul>
       <h2>Done Items</h2>
-      <ul class="list-group mb-4" style="list-style-type:none;">
+      <ul class="list-group mb-4" id="Done-Items" style="list-style-type:none;">
         <!-- List the done items here -->
         {% for item in model.done_items %}
           <li>
