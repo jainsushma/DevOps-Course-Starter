@@ -49,6 +49,8 @@ def delete_trello_board(id):
     return response
 
 def test_task_journey(driver, app_with_temp_board):
+    driver.implicitly_wait(5)
+    time.sleep(3)
     driver.get('http://localhost:5000/')
     assert driver.title == 'To-Do App'
 
@@ -56,45 +58,35 @@ def test_task_journey(driver, app_with_temp_board):
     driver.find_element_by_id("title").send_keys("New Item")
     # driver.find_element_by_xpath("//a[contains(text(),'Add Item')]").click()
     driver.find_element_by_id("addItem").click()
-    time.sleep(5)
     # verify if the task is in To Do list
-    value = driver.find_element_by_id("To-Do-Items")
-    time.sleep(2)
+    value = driver.find_element_by_id("ToDoItems")
     assert "New Item" in value.text
     
     # Move task to Doing list
-    driver.find_element_by_xpath("//a[contains(text(),'Start')]").click()
-    time.sleep(5)
+    driver.find_element_by_xpath("//*[contains(text(),'Start')]").click()
 
     # Verify if the task is in Doing list
-    value = driver.find_element_by_id("Doing-Items")
-    time.sleep(2)
+    value = driver.find_element_by_id("DoingItems")
     assert "New Item" in value.text
 
     # Move task to Done list
-    driver.find_element_by_xpath("//a[contains(text(),'Complete')]").click()
-    time.sleep(5)
+    driver.find_element_by_xpath("//*[contains(text(),'Complete')]").click()
 
     # Verify if the task is in Done list
-    value = driver.find_element_by_id("Done-Items")
-    time.sleep(2)
+    value = driver.find_element_by_id("DoneItems")
     assert "New Item" in value.text
 
     # Move task to To Do list again
-    driver.find_element_by_xpath("//a[contains(text(),'Mark as Incomplete')]").click()
-    time.sleep(5)
+    driver.find_element_by_xpath("//*[contains(text(),'Mark as Incomplete')]").click()
 
     # Verify if the task is in To Do list
-    value = driver.find_element_by_id("To-Do-Items")
-    time.sleep(2)
+    value = driver.find_element_by_id("ToDoItems")
     assert "New Item" in value.text
 
     # Delete the task
-    driver.find_element_by_xpath("//a[contains(text(),'Delete')]").click()
-    time.sleep(5)
+    driver.find_element_by_xpath("//*[contains(text(),'Delete')]").click()
 
     # Verify if the task is deleted
-    value = driver.find_element_by_id("To-Do-Items")
-    time.sleep(2)
+    value = driver.find_element_by_id("ToDoItems")
     assert "New Item" not in value.text
     # driver.quit()
