@@ -5,21 +5,21 @@ from todo_app.item import Item
 
 def test_todo_items():
     items = [
-                Item(1, "Test_ToDo1", "to-do"),
+                Item(1, "Test_ToDo1", "To Do"),
             ]
     todo_items_list = ViewModel(items).todo_items
     assert len(todo_items_list) > 0, "No ToDo item found"
 
 def test_doing_items():
     items = [
-                Item(1, "Test_Doing1", "doing"),
+                Item(1, "Test_Doing1", "Doing"),
             ]
     doing_items_list = ViewModel(items).doing_items
     assert len(doing_items_list) > 0, "No Doing item found"
 
 def test_done_items():
     items = [
-                Item(1, "Test_Done1", "done"),
+                Item(1, "Test_Done1", "Done"),
             ]
     done_items_list = ViewModel(items).done_items
     assert len(done_items_list) > 0, "No Done item found"

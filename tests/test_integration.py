@@ -40,7 +40,7 @@ def sample_trello_lists_response():
     return [
         {
             "id": "doing-1234",
-            "name": "doing",
+            "name": "Doing",
             "idBoard": "test_board",
             "cards": [
                 {
@@ -52,7 +52,7 @@ def sample_trello_lists_response():
         },
         {
             "id": "Done-1234",
-            "name": "done",
+            "name": "Done",
             "idBoard": "test_board",
             "cards": [
                 {
@@ -63,7 +63,7 @@ def sample_trello_lists_response():
         },
         {
             "id": "To-Do-1234",
-            "name": "to-do",
+            "name": "To Do",
             "idBoard": "test_board",
             "cards": [
                 {
