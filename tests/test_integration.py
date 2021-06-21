@@ -22,7 +22,6 @@ def test_index_page(mock_get_requests, client):
     # Replace call to requests.get(url) with our own function
     mock_get_requests.side_effect = mock_get_lists
     response = client.get('/')
-    print(response.data.decode())
     assert response.status_code == 200
     assert "To-Do App" in response.data.decode()
     assert "test1" in response.data.decode()
