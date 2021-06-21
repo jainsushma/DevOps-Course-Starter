@@ -1911,3 +1911,24 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 
 ###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
+1624307681614	geckodriver	INFO	Listening on 127.0.0.1:57538
+1624307681623	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/y7/1zqzh5_x4bs5hm4344f7j55c0000gn/T/rust_mozprofileAXAcHq"
+2021-06-21 21:34:43.468 firefox-bin[93612:1174262] Warning: Expected min height of view: (<NSButton: 0x12337c800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-06-21 21:34:43.469 firefox-bin[93612:1174262] Warning: Expected min height of view: (<NSButton: 0x130ae8800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-06-21 21:34:43.469 firefox-bin[93612:1174262] Warning: Expected min height of view: (<NSButton: 0x130ae9000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-06-21 21:34:43.470 firefox-bin[93612:1174262] Warning: Expected min height of view: (<NSButton: 0x130ae1400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-06-21 21:34:43.470 firefox-bin[93612:1174262] Warning: Expected min height of view: (<NSButton: 0x130ae4400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-06-21 21:34:43.471 firefox-bin[93612:1174262] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x130ae1800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-06-21 21:34:43.471 firefox-bin[93612:1174262] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x130aef400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1624307684700	Marionette	INFO	Listening on port 57547
+1624307684817	Marionette	WARN	TLS certificate errors will be ignored for this session
+1624307684825	Marionette	ERROR	[19] No reply from Marionette:Register
+1624307700061	Marionette	INFO	Stopped listening on port 57547
+
+###!!! [Parent][MessageChannel] Error: (msgtype=0x1F0011,name=PBackgroundStorage::Msg_Observe) Channel error: cannot send/recv
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
