@@ -39,9 +39,9 @@ SECRET_KEY=<your_key>
 TOKEN=<your_token>
 
 The board should have three lists added:
-"to-do"
-"doing"
-"done"
+"To Do"
+"Doing"
+"Done"
 
 ## Running the App
 
@@ -62,3 +62,10 @@ You should see output similar to the following:
 ```
 
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Running the Tests
+Tests are added for Unit, Integration, Selenium Tests
+To run the tests using Poetry and Pytest
+```bash
+$ poetry run pytest
+```
