@@ -6,6 +6,7 @@ if grep 3.8.5 <<< "$(python -V 2>&1)" ;then
     echo "Correct Python Version Already Installed"
 else
     echo "--- Using brew to install Python 3.8.5 ---"
+    git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
     brew install python-tk@3.8.5
 fi
 
