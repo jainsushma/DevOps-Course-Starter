@@ -11,6 +11,10 @@ else
 fi
 
 # Install Poetry
+echo "--- Setting PATH variable before Poetry installation ---"
+export POETRY_ROOT=\"$HOME//.poetry/\"
+export PATH=\"$POETRY_ROOT/bin:$PATH\"
+
 echo "--- Installing Poetry ---"
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 
