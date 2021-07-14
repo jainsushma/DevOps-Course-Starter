@@ -4,19 +4,24 @@
 
 The project uses poetry and flask dependencies for python. To install required packages, run the following from a shell terminal (e.g. Git Bash on Mac):
 
+```bash
 $ ./setup.sh
-Once the setup script has completed and all packages have been installed, start the Flask app by running:
+```
 
 Note: In order to run this application you will require the appropriate trello information in the .env file. They are as follows
 
+```bash
 BOARD_ID=<your_board_id>
 SECRET_KEY=<your_key>
 TOKEN=<your_token>
+```
 
 The board should have three lists added:
+```bash
 "To Do"
 "Doing"
 "Done"
+```
 
 ## Running the App
 
