@@ -121,3 +121,6 @@ env/
 
 ### Driver log files ###
 geckodriver.log
+
+### Vagrant ###
+.vagrant

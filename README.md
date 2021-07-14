@@ -1,47 +1,27 @@
 # DevOps Apprenticeship: Project Exercise
 
-## System Requirements
+## Setting up shell script for installing/updating dependencies
 
-The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
-
-### Poetry installation (Bash)
+The project uses poetry and flask dependencies for python. To install required packages, run the following from a shell terminal (e.g. Git Bash on Mac):
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+$ ./setup.sh
 ```
 
-### Poetry installation (PowerShell)
-
-```powershell
-(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
-```
-
-## Dependencies
-
-The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
+Note: In order to run this application you will require the appropriate trello information in the .env file. They are as follows
 
 ```bash
-$ poetry install
-```
-
-You'll also need to clone a new `.env` file from the `.env.template` to store local configuration options. This is a one-time operation on first setup:
-
-```bash
-$ cp .env.template .env  # (first time only)
-```
-
-The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). 
-
-In order to run this application you will require the appropriate trello information in the .env file. They are as follows
-
 BOARD_ID=<your_board_id>
 SECRET_KEY=<your_key>
 TOKEN=<your_token>
+```
 
 The board should have three lists added:
+```bash
 "To Do"
 "Doing"
 "Done"
+```
 
 ## Running the App
 
@@ -64,8 +44,9 @@ You should see output similar to the following:
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
 ## Running the Tests
-Tests are added for Unit, Integration, Selenium Tests
-To run the tests using Poetry and Pytest
+Tests are added for Unit, Integration, Selenium Tests.
+
+To run the tests using Poetry and Pytest, stop the app running above and run the command below
 ```bash
 $ poetry run pytest
 ```
