@@ -40,7 +40,7 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 ## Running the Tests
 Tests are added for Unit, Integration, Selenium Tests
-To run the tests using Poetry and Pytest
+To run the tests using Poetry and Pytest, stop the app running above and run the command below
 ```bash
 $ poetry run pytest
 ```
