@@ -22,9 +22,5 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 echo "--- Installing dependencies ---"
 poetry install
 
-# Create a .env file from the .env.template
+# Create a .env file from the .env.template and add the details
 cp -n .env.template .env
-
-# Running App
-echo "--- Running the App ---"
-poetry run flask run
