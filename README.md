@@ -54,9 +54,41 @@ $ poetry run pytest
 ## Running the application using docker
 Use following commands to run docker image todo-app
 
+## Running the application in single-stage docker file
 ```bash
 docker build -t todo-app .
 
 Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
 docker run --env-file .env -p 5000:5000 
+```
+## Add gunicorn for running in Production environment
+```bash
+poetry add gunicorn
+```
+
+## Running the application in multi-stage docker file in production
+```bash
+docker build -t todo-app:prod --target production .
+
+Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
+docker run --env-file .env -p 5000:5000 todo-app:prod
+```
+
+## Running the application in single-stage docker file in development
+```bash
+docker build -t todo-app:dev --target development .
+
+Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
+docker run --env-file .env -p 5000:5000 todo-app:dev
+```
+
+## Running the application in single-stage docker file in test
+```bash
+docker build -t todo-app:test --target test .
+
+Pass environment variables as a file, publish the application on port 5000 and listen on port 5000 for Integration tests
+docker run --env-file .env.test todo-app:test tests
+
+Pass environment variables as a file, publish the application on port 5000 and listen on port 5000 for E2E tests
+docker run --env-file .env todo-app:test tests_e2e
 ```

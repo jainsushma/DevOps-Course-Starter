@@ -2,3 +2,4 @@
 .env.template
 .venv
 .git
+__pycache__
