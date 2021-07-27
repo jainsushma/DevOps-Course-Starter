@@ -74,7 +74,7 @@ Pass environment variables as a file, publish the application on port 5000 and l
 docker run --env-file .env -p 5000:5000 todo-app:prod
 ```
 
-## Running the application in single-stage docker file in development
+## Running the application in multi-stage docker file in development
 ```bash
 docker build -t todo-app:dev --target development .
 
@@ -82,7 +82,7 @@ Pass environment variables as a file, publish the application on port 5000 and l
 docker run --env-file .env -p 5000:5000 todo-app:dev
 ```
 
-## Running the application in single-stage docker file in test
+## Running the application in multi-stage docker file in test
 ```bash
 docker build -t todo-app:test --target test .
 
