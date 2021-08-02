@@ -42,8 +42,8 @@ services:
       - type: volume
         source: ./tests
         target: /todo_app/tests
-        env_file:
-          - .env.test
+    env_file:
+      - .env.test
       
   todo_app_test_e2e:
     container_name: test_e2e
@@ -55,6 +55,6 @@ services:
       - type: volume
         source: ./tests_e2e
         target: /todo_app/tests_e2e
-        env_file:
-          - .env
+    env_file:
+      - .env
   
