@@ -54,13 +54,6 @@ $ poetry run pytest
 ## Running the application using docker
 Use following commands to run docker image todo-app
 
-## Running the application in single-stage docker file
-```bash
-docker build -t todo-app .
-
-Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
-docker run --env-file .env -p 5000:5000 
-```
 ## Running the application in multi-stage docker file in production
 ```bash
 Make sure gunicorn dependency is already added in pyproject.toml
