@@ -16,7 +16,6 @@ COPY ./todo_app /todo_app/todo_app
 
 FROM base as production 
 # Configure for production
-#Implement as CMD, Gunicorn, is it necessary to have brackets in ENTRYPOINT, how to differentiate between ENTRYPOINT & CMD
 ENTRYPOINT [ "poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
 EXPOSE 5000
 
