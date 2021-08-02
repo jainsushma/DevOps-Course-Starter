@@ -18,7 +18,7 @@ services:
         - .env
 
   todo_app_dev:
-    container_name: Development
+    container_name: development
     image: todo-app:dev
     build: 
       context: .
@@ -28,7 +28,7 @@ services:
         source: ./todo_app
         target: /todo_app/todo_app
     ports:
-      - 5001:5000
+      - 5001:5001
     env_file:
       - .env
       
