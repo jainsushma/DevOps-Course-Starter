@@ -60,7 +60,7 @@ Make sure gunicorn dependency is already added in pyproject.toml
 docker build -t todo-app:prod --target production .
 
 Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
-docker run --env-file .env -p 5000:5000 todo-app:prod
+docker run --env-file .env -p 5000:5000 --mount type=bind todo-app:prod
 ```
 
 ## Running the application in multi-stage docker file in development
@@ -68,7 +68,7 @@ docker run --env-file .env -p 5000:5000 todo-app:prod
 docker build -t todo-app:dev --target development .
 
 Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
-docker run --env-file .env -p 5000:5000 todo-app:dev
+docker run --env-file .env -p 5000:5000 --mount type=bind todo-app:dev
 ```
 
 ## Running the application in multi-stage docker file in test
