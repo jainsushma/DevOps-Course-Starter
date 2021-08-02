@@ -57,18 +57,18 @@ Use following commands to run docker image todo-app
 ## Running the application in multi-stage docker file in production
 ```bash
 Make sure gunicorn dependency is already added in pyproject.toml
-docker build -t todo-app:prod --target production .
+docker build --target production --tag todo-app:prod .
 
 Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
-docker run --env-file .env -p 5000:5000 --mount type=bind todo-app:prod
+docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app todo-app:prod
 ```
 
 ## Running the application in multi-stage docker file in development
 ```bash
-docker build -t todo-app:dev --target development .
+docker build --target development --tag todo-app:dev .
 
 Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
-docker run --env-file .env -p 5000:5000 --mount type=bind todo-app:dev
+docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app todo-app:dev
 ```
 
 ## Running the application in multi-stage docker file in test
