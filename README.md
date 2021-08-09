@@ -67,17 +67,11 @@ docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_a
 ```bash
 docker build --target development --tag todo-app:dev .
 
-Pass environment variables as a file, publish the application on port 5000 and listen on port 5000
-docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app todo-app:dev
+Pass environment variables as a file, publish the application on port 5001 and listen on port 5000
+docker run --env-file .env -p 5001:5001 --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app todo-app:dev
 ```
 
-## Running the application in multi-stage docker file in test
+## Running the application with docker-compose
 ```bash
-docker build -t todo-app:test --target test .
-
-Pass environment variables as a file, publish the application on port 5000 and listen on port 5000 for Integration tests
-docker run --env-file .env.test todo-app:test tests
-
-Pass environment variables as a file, publish the application on port 5000 and listen on port 5000 for E2E tests
-docker run --env-file .env todo-app:test tests_e2e
+docker compose up --build
 ```

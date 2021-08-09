@@ -21,11 +21,5 @@ EXPOSE 5000
 
 FROM base as development 
 # Configure for local development
-ENTRYPOINT [ "poetry", "run", "flask", "run", "-h", "0.0.0.0", "-p", "5000"]
-EXPOSE 5000
-
-FROM base as test
-# Configure for test
-COPY ./tests_e2e /todo_app/tests_e2e
-COPY ./tests /todo_app/tests
-ENTRYPOINT ["poetry", "run", "pytest"]
+ENTRYPOINT [ "poetry", "run", "flask", "run", "-h", "0.0.0.0", "-p", "5001"]
+EXPOSE 5001

@@ -8,9 +8,10 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+      target: production
     volumes: 
-      - type: volume
-        source: ./todo_app
+      - type: bind
+        source: ${PWD}/todo_app
         target: /todo_app/todo_app
     ports:
         - 5000:5000
@@ -23,38 +24,14 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+      target: development
     volumes: 
-      - type: volume
-        source: ./todo_app
+      - type: bind
+        source: ${PWD}/todo_app
         target: /todo_app/todo_app
     ports:
       - 5001:5001
     env_file:
       - .env
       
-  todo_app_test:
-    container_name: tests
-    image: todo-app:test
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    volumes: 
-      - type: volume
-        source: ./tests
-        target: /todo_app/tests
-    env_file:
-      - .env.test
-      
-  todo_app_test_e2e:
-    container_name: test_e2e
-    image: todo-app:test
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    volumes: 
-      - type: volume
-        source: ./tests_e2e
-        target: /todo_app/tests_e2e
-    env_file:
-      - .env
   
