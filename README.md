@@ -67,7 +67,7 @@ docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_a
 ```bash
 docker build --target development --tag todo-app:dev .
 
-Pass environment variables as a file, publish the application on port 5001 and listen on port 5000
+Pass environment variables as a file, publish the application on port 5001 and listen on port 5001
 docker run --env-file .env -p 5001:5001 --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app todo-app:dev
 ```
 
