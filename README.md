@@ -75,3 +75,9 @@ docker run --env-file .env -p 5001:5001 --mount type=bind,source="$(pwd)"/todo_a
 ```bash
 docker compose up --build
 ```
+## Running the application with docker-compose in development/production
+```bash
+docker compose up todo_app_dev --build
+
+docker compose up todo_app_prod --build
+```

@@ -16,10 +16,12 @@ COPY ./todo_app /todo_app/todo_app
 
 FROM base as production 
 # Configure for production
+ENV FLASK_ENV=production
 ENTRYPOINT [ "poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
 EXPOSE 5000
 
 FROM base as development 
 # Configure for local development
+ENV FLASK_ENV=development
 ENTRYPOINT [ "poetry", "run", "flask", "run", "-h", "0.0.0.0", "-p", "5001"]
 EXPOSE 5001
