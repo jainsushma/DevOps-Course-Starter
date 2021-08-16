@@ -1,0 +1,37 @@
+# Copy this into a file called `docker-compose.yml`
+version: "3.2"
+
+services:
+  todo_app_prod:
+    container_name: production
+    image: todo-app:prod
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    volumes: 
+      - type: bind
+        source: ${PWD}/todo_app
+        target: /todo_app/todo_app
+    ports:
+        - 5000:5000
+    env_file:
+        - .env
+
+  todo_app_dev:
+    container_name: development
+    image: todo-app:dev
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    volumes: 
+      - type: bind
+        source: ${PWD}/todo_app
+        target: /todo_app/todo_app
+    ports:
+      - 5001:5001
+    env_file:
+      - .env
+      
+  
