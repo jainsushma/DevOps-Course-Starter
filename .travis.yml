@@ -1,2 +1,12 @@
+services:
+- docker
 script:
-- echo "hello world"
+  # Build
+  - docker build --target test --tag todo-app:test .
+
+  #Tests
+  #Unit & Integration tests
+  - docker run todo-app:test tests
+
+  # End to End test
+  - docker run -e SECRET_KEY=$SECRET_KEY -e TOKEN=$TOKEN todo-app:test tests_e2e
