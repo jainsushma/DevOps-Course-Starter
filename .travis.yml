@@ -10,3 +10,10 @@ script:
 
   # End to End test
   - docker run -e SECRET_KEY=$SECRET_KEY -e TOKEN=$TOKEN todo-app:test tests_e2e
+
+notifications:
+  email:
+    recipients:
+      - sushma.crawley@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
