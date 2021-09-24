@@ -13,8 +13,6 @@ script:
 
 notifications:
   slack: amex-corndel-devops:aP3GLzh4WeVyZsfQSAAKEAVC
-    on_success: never # default: change
-    on_failure: always # default: always
   email:
     recipients:
       - sushma.crawley@gmail.com
