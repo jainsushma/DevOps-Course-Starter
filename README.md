@@ -68,7 +68,18 @@ docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_a
 docker build --target development --tag todo-app:dev .
 
 Pass environment variables as a file, publish the application on port 5001 and listen on port 5001
-docker run --env-file .env -p 5001:5001 --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app todo-app:dev
+docker run --env-file .env -p 5001:5001 --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app todo-app:prod
+```
+
+## Running the tests in multi-stage docker file in test
+```bash
+docker build --target test --tag todo-app:test .
+
+Run Unit and integration tests as below
+docker run todo-app:test tests
+
+Pass environment variables as a file and run Selenium e2e tests as below
+docker run --env-file .env todo-app:test tests_e2e
 ```
 
 ## Running the application with docker-compose
