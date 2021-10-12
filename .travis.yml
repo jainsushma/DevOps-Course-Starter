@@ -1,0 +1,20 @@
+services:
+- docker
+script:
+  # Build
+  - docker build --target test --tag todo-app:test .
+
+  #Tests
+  #Unit & Integration tests
+  - docker run todo-app:test tests
+
+  # End to End test
+  - docker run -e SECRET_KEY -e TOKEN todo-app:test tests_e2e
+
+notifications:
+  slack: amex-corndel-devops:aP3GLzh4WeVyZsfQSAAKEAVC
+  email:
+    recipients:
+      - sushma.crawley@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always

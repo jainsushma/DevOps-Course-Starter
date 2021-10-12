@@ -15,17 +15,17 @@ def create_app():
     def add_new_item():
         title = request.form['title']
         TrelloBoardActions().add_new_card(title)
-        return redirect(os.getenv("TODO_HOSTNAME"))
+        return redirect('/')
 
     @app.route('/move_item/<id>', methods=['POST'])
     def move_item(id):
         TrelloBoardActions().update_card_status(id)
-        return redirect(os.getenv("TODO_HOSTNAME"))
+        return redirect('/')
 
     @app.route('/delete_item/<id>', methods=['POST'])
     def delete_item(id):
         TrelloBoardActions().delete_card(id)
-        return redirect(os.getenv("TODO_HOSTNAME"))
+        return redirect('/')
 
     return app
 

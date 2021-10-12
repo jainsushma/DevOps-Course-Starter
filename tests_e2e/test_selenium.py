@@ -6,11 +6,14 @@ from threading import Thread
 from dotenv import find_dotenv, load_dotenv
 import todo_app.app as app
 from selenium import webdriver
-from selenium.webdriver import Firefox
 
 @pytest.fixture(scope="module")
 def driver():
-    with webdriver.Firefox() as driver:
+    opts = webdriver.ChromeOptions()
+    opts.add_argument('--headless')
+    opts.add_argument('--no-sandbox')
+    opts.add_argument('--disable-dev-shm-usage')
+    with webdriver.Chrome(options=opts) as driver:
         yield driver
 
 @pytest.fixture(scope='module')
