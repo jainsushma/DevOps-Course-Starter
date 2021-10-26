@@ -19,9 +19,8 @@ FROM base as production
 # Configure for production
 ENV FLASK_ENV=production
 COPY ./port.sh /todo_app/
-RUN chmod +x ./port.sh
-ENTRYPOINT ./port.sh
-#EXPOSE 5000
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ./entrypoint.sh
 
 FROM base as development 
 # Configure for local development
