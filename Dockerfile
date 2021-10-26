@@ -10,15 +10,18 @@ RUN echo "--- Installing dependencies ---"
 WORKDIR /todo_app
 COPY pyproject.toml poetry.lock /todo_app/
 
-RUN poetry install
+#RUN poetry install
+RUN poetry config virtualenvs.create false --local && poetry install
 
 COPY ./todo_app /todo_app/todo_app
 
 FROM base as production 
 # Configure for production
 ENV FLASK_ENV=production
-ENTRYPOINT [ "poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
-EXPOSE 5000
+COPY ./port.sh /todo_app/
+RUN chmod +x ./port.sh
+ENTRYPOINT ["port.sh"]
+#EXPOSE 5000
 
 FROM base as development 
 # Configure for local development
