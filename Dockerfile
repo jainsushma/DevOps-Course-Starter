@@ -18,7 +18,7 @@ COPY ./todo_app /todo_app/todo_app
 FROM base as production 
 # Configure for production
 ENV FLASK_ENV=production
-COPY ./port.sh /todo_app/
+COPY ./entrypoint.sh /todo_app/
 RUN chmod +x ./entrypoint.sh
 ENTRYPOINT ./entrypoint.sh
 
