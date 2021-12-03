@@ -26,6 +26,7 @@ jobs:
     env:
         docker_hub_password: ${{ secrets.docker_hub_password }}
         docker_hub_username: ${{ secrets.docker_hub_username }}
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
     needs: build
     # if: github.ref == 'refs/heads/master' # include this line if you want to limit the deployment to the master branch
     steps:
