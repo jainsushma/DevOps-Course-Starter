@@ -24,8 +24,8 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     env:
-        docker_hub_password: ${{ secrets.docker_hub_password }}
-        docker_hub_username: ${{ secrets.docker_hub_username }}
+        DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
     needs: build
     # if: github.ref == 'refs/heads/master' # include this line if you want to limit the deployment to the master branch
@@ -41,8 +41,8 @@ jobs:
     - name: Push the Docker image to DockerHub
       run: docker push sjain309/todo-app-prod:latest
 
-    - name: Pull the Docker image from DockerHub
-      run: docker pull sjain309/todo-app-prod
+    # - name: Pull the Docker image from DockerHub
+    #   run: docker pull sjain309/todo-app-prod
 
     - name: Tag the Docker image for Heroku
       run: docker tag sjain309/todo-app-prod registry.heroku.com/heroku-app-devops/web
