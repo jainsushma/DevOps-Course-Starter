@@ -92,3 +92,27 @@ docker compose up todo_app_dev --build
 
 docker compose up todo_app_prod --build
 ```
+## CI/CD Using Github Actions & Heroku
+```bash
+Github Actions will run builds on branches after every push command. It will run the automated tests that are configured and if they pass, will deploy a Heroku container using the pushed branch on this repository.
+
+## Setup Github Actions
+1. Create  a .github folder at the top of your project
+2. Inside there, create a workflows folder
+3. Create a .yml file with basic commands
+4. Go to the repository's settings page and then select the Secrets tab to set 'Environment Variables' add each of the required ENV variables - DOCKER_PASSWORD (insert your Docker account password) - SECRET_APIKEY (Trello) - SECRET_APITOKEN (Trello) - SECRET_KEY - BOARD_NAME (Trello)
+5. Complete Heroku setup below
+6. Add ENV to Github - HEROKU_API_KEY = Paste API Key from step 5 below or run following commands
+ - heroku login
+ - heroku container:login
+ - heroku authorizations:create
+## Setup Heroku
+1. Login (or create an account) to Heroku
+2. Create a new app e.g. 'heroku-app-devops'
+3. Click the user icon in top right corner and select 'Account settings'
+4. Scroll down to 'API Key' and generate a key if no key exists
+5. Select 'Reveal' and copy the key to clip-board
+6. Complete step 6 above
+7. In Heroku, click 'Heroku' at top of web page and select the new app
+8. In Settings, 'Config Vars', click 'Reveal Config Vars' and add the ENV Vars: - BOARD_ID, SECRET & the TOKEN for your Trello account. These values would be available in your local .env file
+```

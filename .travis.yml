@@ -11,7 +11,13 @@ script:
   # End to End test
   - docker run -e SECRET_KEY -e TOKEN todo-app:test tests_e2e
 
-notifications:
+before_deploy:
+- echo $docker_hub_password | docker login --username $docker_hub_username --password-stdin
+- docker build --target production --tag sjain309/todo-app-prod:latest .
+- docker push sjain309/todo-app-prod:latest
+# test
+
+notification
   slack: amex-corndel-devops:aP3GLzh4WeVyZsfQSAAKEAVC
   email:
     recipients:
