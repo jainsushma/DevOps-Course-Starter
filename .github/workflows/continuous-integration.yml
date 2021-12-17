@@ -6,7 +6,9 @@ jobs:
     name: Build and test
     runs-on: ubuntu-latest
     env:
-        TOKEN: ${{ secrets.TOKEN }}
+        # TOKEN: ${{ secrets.TOKEN }} 
+        CLIENT: ${{ secrets.CLIENT }}
+        # connect with db client
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
     steps:
     - uses: actions/checkout@v2
@@ -18,7 +20,7 @@ jobs:
       run: docker run todo-app:test tests
     
     - name: End to End Test
-      run: docker run -e SECRET_KEY -e TOKEN todo-app:test tests_e2e
+      run: docker run -e SECRET_KEY -e CLIENT todo-app:test tests_e2e
 
   deploy:
     name: Deploy
