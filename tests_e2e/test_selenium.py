@@ -17,7 +17,7 @@ def driver():
     opts.add_argument('--disable-dev-shm-usage')
     with webdriver.Chrome(options=opts) as driver:
         yield driver
-
+        
 # @pytest.fixture(scope="module")
 # def driver():
 #     with webdriver.Firefox() as driver:
@@ -40,10 +40,7 @@ def app_with_temp_board():
     # Tear Down
     thread.join(1)
     time.sleep(3)
-    # MongoActions().client.drop_database("TODOSELENIUMDB", session=None)
-    db_connection = os.getenv('CLIENT')
-    connection = pymongo.MongoClient(db_connection)
-    connection.drop_database("TODOSELENIUMDB", session=None)
+    MongoActions().client.drop_database("TODOSELENIUMDB", session=None)
 
 def test_task_journey(driver, app_with_temp_board):
     driver.implicitly_wait(5)
