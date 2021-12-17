@@ -6,9 +6,8 @@ jobs:
     name: Build and test
     runs-on: ubuntu-latest
     env:
-        # TOKEN: ${{ secrets.TOKEN }} 
-        CLIENT: ${{ secrets.CLIENT }}
         # connect with db client
+        CLIENT: ${{ secrets.CLIENT }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
     steps:
     - uses: actions/checkout@v2
