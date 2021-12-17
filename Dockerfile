@@ -57,7 +57,7 @@ RUN wget --no-verbose -O geckodriver.tar.gz https://github.com/mozilla/geckodriv
   && chmod 755 /opt/geckodriver \
   && ln -fs /opt/geckodriver /usr/bin/geckodriver
 
-ENTRYPOINT poetry run watchmedo shell-command -c='poetry run pytest' -p='*.py;*.html;*.txt' -D -R -w --debug-force-polling '/app'
+ENTRYPOINT [ "poetry", "run", "pytest"]
 # # Install Chrome
 # RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |apt-key add - \
 #  && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
