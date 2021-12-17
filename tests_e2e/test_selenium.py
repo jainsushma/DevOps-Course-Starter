@@ -6,6 +6,7 @@ from threading import Thread
 from dotenv import find_dotenv, load_dotenv
 import todo_app.app as app
 from todo_app.mongo_actions import MongoActions
+import pymongo
 from selenium import webdriver
 
 @pytest.fixture(scope="module")
@@ -34,8 +35,9 @@ def app_with_temp_board():
     # Tear Down
     thread.join(1)
     time.sleep(3)
-    mongoActions = MongoActions()
-    mongoActions.db.drop()
+    # mongoActions = MongoActions()
+    # mongoActions.db.drop()
+    pymongo.MongoClient.drop_database("TODOSELENIUMDB", session=None)
 
 def test_task_journey(driver, app_with_temp_board):
     driver.implicitly_wait(5)
