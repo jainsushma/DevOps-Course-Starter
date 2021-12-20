@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-from todo_app.trello_board_actions import TrelloBoardActions
 from todo_app.view_model import ViewModel
 import os
 import requests
@@ -10,13 +9,11 @@ def create_app():
 
     @app.route('/')
     def get_items():
-        # return render_template("index.html", model=ViewModel(TrelloBoardActions().get_cards()))
         return render_template("index.html", model=ViewModel(MongoActions().get_cards()))
 
     @app.route('/add_item', methods=['POST'])
     def add_new_item():
         title = request.form['title']
-        # TrelloBoardActions().add_new_card(title)
         MongoActions().add_new_card(title)
         return redirect('/')
 

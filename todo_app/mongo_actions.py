@@ -3,7 +3,7 @@ from todo_app.item import Item
 from bson.objectid import ObjectId
 
 class MongoActions:
-    " Trello util to get lists on a board, get cards and their statuses, update/delete a card"    
+    " MongoDB utils to get lists on a board, get cards and their statuses, update/delete a card"    
 
     def __init__(self):
         self.client = pymongo.MongoClient(os.getenv("CLIENT"))

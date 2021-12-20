@@ -116,3 +116,16 @@ Github Actions will run builds on branches after every push command. It will run
 7. In Heroku, click 'Heroku' at top of web page and select the new app
 8. In Settings, 'Config Vars', click 'Reveal Config Vars' and add the ENV Vars: - BOARD_ID, SECRET & the TOKEN for your Trello account. These values would be available in your local .env file
 ```
+
+## Switching from TRELLO board to MONGO db
+```bash
+We are now using MongoDB in place of Trello. In order to configure this application to work with MongoDB you will need to update the following variables 
+
+1. With the .env file:
+
+DBNAME=[Your DB Name Here]
+CLIENT=[Your Connection String Here] 
+
+2. Add CLIENT secret to Github
+3. Add CLIENT and some new DB eg 'PRODDB' as DBNAME as Heroku config variables
+```
