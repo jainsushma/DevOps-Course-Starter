@@ -28,6 +28,7 @@ def test_index_page(client):
     # Replace call to requests.get(url) with our own function
     response = client.get('/')
     assert response.status_code == 200
+    assert "test1" in str(response.data)
 
 
     
