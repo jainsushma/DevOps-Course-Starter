@@ -5,15 +5,13 @@ import time
 from threading import Thread
 from dotenv import find_dotenv, load_dotenv
 import todo_app.app as app
+from todo_app.mongo_actions import MongoActions
+import pymongo
 from selenium import webdriver
-
+        
 @pytest.fixture(scope="module")
 def driver():
-    opts = webdriver.ChromeOptions()
-    opts.add_argument('--headless')
-    opts.add_argument('--no-sandbox')
-    opts.add_argument('--disable-dev-shm-usage')
-    with webdriver.Chrome(options=opts) as driver:
+    with webdriver.Firefox() as driver:
         yield driver
 
 @pytest.fixture(scope='module')
@@ -21,8 +19,7 @@ def app_with_temp_board():
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
     # Create the new board & update the board id environment variable
-    board_id = create_trello_board("Test Board")
-    os.environ['BOARD_ID'] = board_id
+    os.environ['DBNAME'] = "TODOSELENIUMDB"
     # construct the new application
     application = app.create_app()
     # start the app in its own thread.
@@ -34,22 +31,7 @@ def app_with_temp_board():
     # Tear Down
     thread.join(1)
     time.sleep(3)
-    delete_trello_board(board_id)
-
-def create_trello_board(name):
-    params = {"key": os.getenv('SECRET_KEY'),
-              "token": os.getenv('TOKEN'), "name": name}
-    response = requests.post(
-        f"https://api.trello.com/1/boards/", params=params)
-    return response.json()["id"]
-             
-
-def delete_trello_board(id):
-    params = {"key": os.getenv('SECRET_KEY'),
-              "token": os.getenv('TOKEN'),}
-    response = requests.delete(
-        f"https://api.trello.com/1/boards/{id}", params=params)
-    return response
+    MongoActions().client.drop_database("TODOSELENIUMDB", session=None)
 
 def test_task_journey(driver, app_with_temp_board):
     driver.implicitly_wait(5)
