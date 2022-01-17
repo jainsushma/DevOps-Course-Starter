@@ -20,6 +20,7 @@ def app_with_temp_board():
     load_dotenv(file_path, override=True)
     # Create the new board & update the board id environment variable
     os.environ['DBNAME'] = "TODOSELENIUMDB"
+    os.environ['LOGIN_DISABLED'] = "True"
     # construct the new application
     application = app.create_app()
     # start the app in its own thread.
