@@ -3,12 +3,16 @@ from todo_app.view_model import ViewModel
 import os
 import requests
 from todo_app.mongo_actions import MongoActions
-from flask_login import LoginManager, login_required, login_user, UserMixin
+from flask_login import LoginManager, login_required, login_user, UserMixin, current_user
 from oauthlib.oauth2 import WebApplicationClient
 
 class User(UserMixin):
     def __init__(self, userId):
         self.id = userId
+        if userId == 'jainsushma':
+            self.role = "writer"
+        else: 
+            self.role = "reader"
 
 def create_app():
     app = Flask(__name__)
@@ -41,9 +45,9 @@ def create_app():
             data=body,
         )
         userInfo = userInfo.json()
-        print((userInfo['id']))
-        login_user(load_user(userInfo['id']))
-        return redirect(url_for(get_items))
+        print((userInfo['login']))
+        login_user(load_user(userInfo['login']))
+        return redirect('/')
 
     @login_manager.unauthorized_handler 
     def unauthenticated():
@@ -64,20 +68,29 @@ def create_app():
     @app.route('/add_item', methods=['POST'])
     @login_required
     def add_new_item():
-        title = request.form['title']
-        MongoActions().add_new_card(title)
+        if current_user.role == "writer":
+            title = request.form['title']
+            MongoActions().add_new_card(title)
+        else:
+            print("Unauthorised Access")
         return redirect('/')
     
     @app.route('/move_item/<id>', methods=['POST'])
     @login_required
     def move_item(id):
-        MongoActions().update_card_status(id)
+        if current_user.role == "writer":
+            MongoActions().update_card_status(id)
+        else:
+            print("Unauthorised Access")
         return redirect('/')
 
     @app.route('/delete_item/<id>', methods=['POST'])
     @login_required
     def delete_item(id):
-        MongoActions().delete_card(id)
+        if current_user.role == "writer":
+            MongoActions().delete_card(id)
+        else:
+            print("Unauthorised Access")    
         return redirect('/')
 
     return app
