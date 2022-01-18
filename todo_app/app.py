@@ -23,6 +23,7 @@ def create_app():
     # Values setup during registration
     clientId = os.getenv('CLIENTID')
     clientSecret = os.getenv('CLIENTSECRET')
+    loginDisabled = app.config.get('LOGIN_DISABLED')
     githubClient = WebApplicationClient(clientId)
 
     @app.route('/login/callback')
@@ -68,7 +69,7 @@ def create_app():
     @app.route('/add_item', methods=['POST'])
     @login_required
     def add_new_item():
-        if current_user.role == "writer":
+        if (loginDisabled or current_user.role == "writer"):
             title = request.form['title']
             MongoActions().add_new_card(title)
         else:
@@ -78,7 +79,7 @@ def create_app():
     @app.route('/move_item/<id>', methods=['POST'])
     @login_required
     def move_item(id):
-        if current_user.role == "writer":
+        if (loginDisabled or current_user.role == "writer"):
             MongoActions().update_card_status(id)
         else:
             print("Unauthorised Access")
@@ -87,7 +88,7 @@ def create_app():
     @app.route('/delete_item/<id>', methods=['POST'])
     @login_required
     def delete_item(id):
-        if current_user.role == "writer":
+        if (loginDisabled or current_user.role == "writer"):
             MongoActions().delete_card(id)
         else:
             print("Unauthorised Access")    
