@@ -10,7 +10,7 @@ class User(UserMixin):
     def __init__(self, userId):
         self.id = userId
         if userId == 'jainsushma':
-            self.role = "writer"
+            self.role = "reader"
         else: 
             self.role = "reader"
 
@@ -74,6 +74,7 @@ def create_app():
             MongoActions().add_new_card(title)
         else:
             print("Unauthorised Access")
+            return render_template("error.html", error="Insufficient User Rights")
         return redirect('/')
     
     @app.route('/move_item/<id>', methods=['POST'])
@@ -83,6 +84,7 @@ def create_app():
             MongoActions().update_card_status(id)
         else:
             print("Unauthorised Access")
+            return render_template("error.html", error="Insufficient User Right")
         return redirect('/')
 
     @app.route('/delete_item/<id>', methods=['POST'])
@@ -91,7 +93,8 @@ def create_app():
         if (loginDisabled or current_user.role == "writer"):
             MongoActions().delete_card(id)
         else:
-            print("Unauthorised Access")    
+            print("Unauthorised Access")
+            return render_template("error.html", error="Insufficient User Right")    
         return redirect('/')
 
     return app
