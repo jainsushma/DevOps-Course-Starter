@@ -62,7 +62,7 @@ def create_app():
         user = User(user_id)
         return user
 
-    def validate_user(func):
+    def validate_user_role(func):
         @wraps(func)
         def wrapTheFunction(*args, **kwargs):
             if (loginDisabled or current_user.role == "reader"):
@@ -77,7 +77,7 @@ def create_app():
 
     @app.route('/add_item', methods=['POST'])
     @login_required
-    @validate_user
+    @validate_user_role
     def add_new_item():
         title = request.form['title']
         MongoActions().add_new_card(title)
@@ -85,14 +85,14 @@ def create_app():
 
     @app.route('/move_item/<id>', methods=['POST'])
     @login_required
-    @validate_user
+    @validate_user_role
     def move_item(id):
         MongoActions().update_card_status(id)
         return redirect('/')
     
     @app.route('/delete_item/<id>', methods=['POST'])
-    @validate_user
     @login_required
+    @validate_user_role
     def delete_item(id):
         MongoActions().delete_card(id)
         return redirect('/')
