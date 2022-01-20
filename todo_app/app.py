@@ -5,12 +5,13 @@ import requests
 from todo_app.mongo_actions import MongoActions
 from flask_login import LoginManager, login_required, login_user, UserMixin, current_user
 from oauthlib.oauth2 import WebApplicationClient
+from functools import wraps
 
 class User(UserMixin):
     def __init__(self, userId):
         self.id = userId
         if userId == 'jainsushma':
-            self.role = "reader"
+            self.role = "writer"
         else: 
             self.role = "reader"
 
@@ -61,6 +62,14 @@ def create_app():
         user = User(user_id)
         return user
 
+    def validate_user(func):
+        @wraps(func)
+        def wrapTheFunction(*args, **kwargs):
+            if (loginDisabled or current_user.role == "reader"):
+                return render_template("error.html", error="Insufficient User Rights")
+            return func(*args, **kwargs)    
+        return wrapTheFunction
+
     @app.route('/')
     @login_required
     def get_items():
@@ -68,33 +77,24 @@ def create_app():
 
     @app.route('/add_item', methods=['POST'])
     @login_required
+    @validate_user
     def add_new_item():
-        if (loginDisabled or current_user.role == "writer"):
-            title = request.form['title']
-            MongoActions().add_new_card(title)
-        else:
-            print("Unauthorised Access")
-            return render_template("error.html", error="Insufficient User Rights")
-        return redirect('/')
-    
-    @app.route('/move_item/<id>', methods=['POST'])
-    @login_required
-    def move_item(id):
-        if (loginDisabled or current_user.role == "writer"):
-            MongoActions().update_card_status(id)
-        else:
-            print("Unauthorised Access")
-            return render_template("error.html", error="Insufficient User Right")
+        title = request.form['title']
+        MongoActions().add_new_card(title)
         return redirect('/')
 
+    @app.route('/move_item/<id>', methods=['POST'])
+    @login_required
+    @validate_user
+    def move_item(id):
+        MongoActions().update_card_status(id)
+        return redirect('/')
+    
     @app.route('/delete_item/<id>', methods=['POST'])
+    @validate_user
     @login_required
     def delete_item(id):
-        if (loginDisabled or current_user.role == "writer"):
-            MongoActions().delete_card(id)
-        else:
-            print("Unauthorised Access")
-            return render_template("error.html", error="Insufficient User Right")    
+        MongoActions().delete_card(id)
         return redirect('/')
 
     return app
