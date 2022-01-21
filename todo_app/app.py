@@ -68,6 +68,7 @@ def create_app():
             if loginDisabled:
                 if (current_user.role == "reader"):
                     return render_template("error.html", error="Insufficient User Rights")
+                return func(*args, **kwargs)
             return func(*args, **kwargs)    
         return wrapTheFunction
 
