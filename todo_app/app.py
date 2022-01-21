@@ -65,8 +65,6 @@ def create_app():
     def validate_user_role(func):
         @wraps(func)
         def wrapTheFunction(*args, **kwargs):
-            # if loginDisabled:
-            #     return func(*args, **kwargs)
             if loginDisabled or (current_user.role == "reader"):
                 if loginDisabled:
                     return func(*args, **kwargs)
