@@ -39,7 +39,6 @@ def create_app():
             auth=(clientId, clientSecret),
         )
         params=githubClient.parse_request_body_response(r.text)
-        print(params['access_token'])
         tokenUrl, headers, body = githubClient.add_token("https://api.github.com/user")
         userInfo = requests.get(
             tokenUrl,
@@ -47,7 +46,6 @@ def create_app():
             data=body,
         )
         userInfo = userInfo.json()
-        print((userInfo['login']))
         login_user(load_user(userInfo['login']))
         return redirect('/')
 
@@ -65,12 +63,9 @@ def create_app():
     def validate_user_role(func):
         @wraps(func)
         def wrapTheFunction(*args, **kwargs):
-            if loginDisabled or (current_user.role == "reader"):
-                if loginDisabled:
-                    return func(*args, **kwargs)
-                elif (current_user.role == "reader"):    
-                    return render_template("error.html", error="Insufficient User Rights") 
-                return func(*args, **kwargs)    
+            if (current_user.role == "reader"):    
+                return render_template("error.html", error="Insufficient User Rights") 
+            return func(*args, **kwargs)    
         return wrapTheFunction
 
     @app.route('/')
