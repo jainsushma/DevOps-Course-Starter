@@ -62,8 +62,8 @@ def create_app():
 
     def validate_user_role(func):
         @wraps(func)
-        def wrapTheFunction(*args, **kwargs):
-            if (current_user.role == "reader"):    
+        def wrapTheFunction(*args, **kwargs): 
+            if (not loginDisabled and current_user.role == "reader"):    
                 return render_template("error.html", error="Insufficient User Rights") 
             return func(*args, **kwargs)    
         return wrapTheFunction
