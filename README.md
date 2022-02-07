@@ -132,3 +132,28 @@ CLIENT=[Your Connection String Here]
 
 ## Linking to OAuth
 To-Do App is using GitHub for linking to default OAuth provider to manage user access. Users will now be redirected to github to sign and access the application. You will need to register your application with OAuth provider and populate your .env file with the enviroment variables found in the .env.template with the values taken from Github OAuth. Users with "read" access will not be allowed to add, update or delete the tasks in the app.
+
+## CI/CD Using Github Actions & Azure
+```bash
+Github Actions will run builds on branches after every push command. It will run the automated tests that are configured and if they pass, will deploy a Azure container using the pushed branch on this repository.
+
+## Setup Github Actions
+1. Set up Azure Account
+2. Install the cli
+3. Setting Up Your Cloud
+    a. Locate Your Resource Group
+    b. Set up a Cosmos database with Mongo API
+    c. Connect your app to the CosmosDB
+4. Host the frontend on Azure Web App
+    a. Put Container Image on DockerHub registry
+    b. Create a Web App
+    c. Set up environment variables from .env file
+    d. Confirm the live site works
+5. Set up Continuous Deployment
+    a. Find your webhook URL: This can located under app services >> your app >> Deployment Center >> Settings 
+    b. Test your webhook url using: curl -dH -X POST "<webhook>"
+    c. Add the environment variable for webhook in github repository
+    d. Reference webhook environment variable in continuous-integration.yml under the "deploy" job for Azure container release
+    e. Push the code for deploy and build
+    f. Check azure app and the log-stream
+```
