@@ -137,7 +137,6 @@ To-Do App is using GitHub for linking to default OAuth provider to manage user a
 ```bash
 Github Actions will run builds on branches after every push command. It will run the automated tests that are configured and if they pass, will deploy a Azure container using the pushed branch on this repository.
 
-## Setup Github Actions
 1. Set up Azure Account
 2. Install the cli
 3. Setting Up Your Cloud
