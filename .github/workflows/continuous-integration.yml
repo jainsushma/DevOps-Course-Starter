@@ -32,6 +32,9 @@ jobs:
         ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
         ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
         ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
+        CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+        CLIENT_ID: ${{secrets.CLIENT_ID}}
+
     needs: build
     # if: github.ref == 'refs/heads/master' # include this line if you want to limit the deployment to the master branch
     steps:
@@ -64,7 +67,7 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
-    - name: Confihure Terraform
+    - name: Configure Terraform
       run: terraform apply  
 
     - name: Release Azure container

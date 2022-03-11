@@ -8,11 +8,11 @@ variable "SECRET_KEY" {
     
 }
 
-variable "GITHUB_CLIENT_ID" {
+variable "CLIENT_ID" {
 
 }
 
-variable "GITHUB_SECRTET" {
+variable "CLIENT_SECRET" {
 sensitive   = true
 }
 
