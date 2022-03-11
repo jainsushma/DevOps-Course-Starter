@@ -28,6 +28,10 @@ jobs:
         DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
         DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
+        ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
+        ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
+        ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
     needs: build
     # if: github.ref == 'refs/heads/master' # include this line if you want to limit the deployment to the master branch
     steps:
@@ -57,8 +61,14 @@ jobs:
     - name: Release Heroku container
       run: heroku container:release web --app heroku-app-devops
 
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Confihure Terraform
+      run: terraform apply  
+
     - name: Release Azure container
-      run: curl -dH -X POST ${{secrets.WEBHOOK_URL}}
+      run: curl -dH -X POST ${terraform output -raw cd_webhook}
 
 
 
