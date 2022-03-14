@@ -48,8 +48,8 @@ resource "azurerm_app_service" "main" {
  app_settings = {
   "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
   "CLIENT" = azurerm_cosmosdb_account.main.connection_strings[0]
-  "CLIENTID"= var.GITHUB_CLIENT_ID
-  "CLIENTSECRET"=var.GITHUB_SECRTET
+  "CLIENTID"= var.CLIENT_ID
+  "CLIENTSECRET"=var.CLIENT_SECRET
   "SECRET_KEY" = var.SECRET_KEY
   "DBNAME"= var.DB_NAME
   "OAUTHLIB_INSECURE_TRANSPORT"=1
