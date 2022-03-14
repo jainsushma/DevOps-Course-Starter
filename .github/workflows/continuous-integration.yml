@@ -72,7 +72,7 @@ jobs:
       run: terraform apply -auto-approve
 
     - name: Release Azure container
-      run: curl -dH -X POST ${terraform output -raw cd_webhook}
+      run: curl -dH -X POST $(terraform output -raw cd_webhook)
 
 
 
