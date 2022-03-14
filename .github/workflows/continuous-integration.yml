@@ -32,8 +32,9 @@ jobs:
         ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
         ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
         ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
-        CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
-        CLIENT_ID: ${{secrets.CLIENT_ID}}
+        TF_VAR_CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+        TF_VAR_CLIENT_ID: ${{secrets.CLIENT_ID}}
+        TF_VAR_SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     needs: build
     # if: github.ref == 'refs/heads/master' # include this line if you want to limit the deployment to the master branch
@@ -68,7 +69,7 @@ jobs:
       run: terraform init
 
     - name: Configure Terraform
-      run: terraform apply  
+      run: terraform apply -auto-approve
 
     - name: Release Azure container
       run: curl -dH -X POST ${terraform output -raw cd_webhook}
