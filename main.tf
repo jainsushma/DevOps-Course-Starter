@@ -51,7 +51,7 @@ resource "azurerm_app_service" "main" {
   "CLIENTID"= var.CLIENT_ID
   "CLIENTSECRET"=var.CLIENT_SECRET
   "SECRET_KEY" = var.SECRET_KEY
-  "DBNAME"= var.DB_NAME
+  "DBNAME"= azurerm_cosmosdb_mongo_database.main.name
   "OAUTHLIB_INSECURE_TRANSPORT"=1
  }
 }

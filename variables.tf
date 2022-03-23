@@ -10,7 +10,3 @@ variable "CLIENT_SECRET" {
 sensitive   = true
 }
 
-variable "DB_NAME" {
-    default ="module12-azure-cosmos-account-sj"
-}
-
