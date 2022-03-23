@@ -156,3 +156,22 @@ Github Actions will run builds on branches after every push command. It will run
     e. Push the code for deploy and build
     f. Check azure app and the log-stream
 ```
+
+## CI/CD using Github Actions and Azure Infrastructure-as-Code (IaC)
+```bash
+- Log in to Azure:
+    az login
+    az account list
+- Select the desired subscription:
+    az account set --subscription="SUBSCRIPTION_ID"
+- Create Service Principal and set the environment variables in the workflow    
+- Handle the infrastructure provisioning using Terraform with main.tf, variables.tf and outputs.tf files.
+- Update continuous_integration.yaml 
+    - To initialize Terraform:
+        terraform init
+    - To apply Terraform with given environment variables and auto-approve flag
+        terraform apply -auto-approve
+    - To trigger webhook:
+        curl -dH -X POST "$(terraform output webhook_url)"
+- Access Azure web-app at: http://module12-azure-terraform-sj.azurewebsites.net/
+```
