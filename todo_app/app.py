@@ -22,7 +22,7 @@ def create_app():
     app.config.from_object('todo_app.flask_config.Config')
     login_manager = LoginManager()
     login_manager.init_app(app)
-    if app.config['LOG_LEVEL'] is None:
+    if app.config['LOG_LEVEL'] is not None:
         app.logger.setLevel(app.config['LOG_LEVEL'])
     
     if app.config['LOGGLY_TOKEN'] is not None:
