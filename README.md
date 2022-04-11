@@ -126,12 +126,16 @@ We are now using MongoDB in place of Trello. In order to configure this applicat
 DBNAME=[Your DB Name Here]
 CLIENT=[Your Connection String Here] 
 
-2. Add CLIENT secret to Github
+2. Add CLIENT secrets to Github
 3. Add CLIENT and some new DB eg 'PRODDB' as DBNAME as Heroku config variables
 ```
 
 ## Linking to OAuth
 To-Do App is using GitHub for linking to default OAuth provider to manage user access. Users will now be redirected to github to sign and access the application. You will need to register your application with OAuth provider and populate your .env file with the enviroment variables found in the .env.template with the values taken from Github OAuth. Users with "read" access will not be allowed to add, update or delete the tasks in the app.
+
+## Send logs to Loggly
+- sudo pip install loggly-python-handler
+- poetry add loggly-python-handler //To add the dependecy pyproject.toml
 
 ## CI/CD Using Github Actions & Azure
 ```bash
@@ -157,7 +161,7 @@ Github Actions will run builds on branches after every push command. It will run
     f. Check azure app and the log-stream
 ```
 
-## CI/CD using Github Actions and Azure Infrastructure-as-Code (IaC)
+## CI/CD using Github Actions and Azure Infrastructure-as-Code (IaC) and Loggly
 ```bash
 - Log in to Azure:
     az login
@@ -173,5 +177,6 @@ Github Actions will run builds on branches after every push command. It will run
         terraform apply -auto-approve
     - To trigger webhook:
         curl -dH -X POST "$(terraform output webhook_url)"
-- Access Azure web-app at: http://module12-azure-terraform-sj.azurewebsites.net/
+- Access Azure web-app at: http://module13-azure-terraform-sj.azurewebsites.net/
+- Update Loggly provisioning using Terraform with main.tf, variables.tf by adding "LOG_LEVEL" and "LOGGLY_TOKEN"
 ```

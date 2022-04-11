@@ -35,7 +35,7 @@ resource "azurerm_app_service_plan" "main" {
 }
 
 resource "azurerm_app_service" "main" {
- name = "module12-azure-terraform-sj"
+ name = "module13-azure-terraform-sj"
  location = data.azurerm_resource_group.main.location
  resource_group_name = data.azurerm_resource_group.main.name
  app_service_plan_id = azurerm_app_service_plan.main.id
@@ -51,6 +51,8 @@ resource "azurerm_app_service" "main" {
   "CLIENTID"= var.CLIENT_ID
   "CLIENTSECRET"=var.CLIENT_SECRET
   "SECRET_KEY" = var.SECRET_KEY
+  "LOG_LEVEL" = var.LOG_LEVEL
+  "LOGGLY_TOKEN" = var.LOGGLY_TOKEN
   "DBNAME"= azurerm_cosmosdb_mongo_database.main.name
   "OAUTHLIB_INSECURE_TRANSPORT"=1
  }
