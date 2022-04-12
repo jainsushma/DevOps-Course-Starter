@@ -13,9 +13,9 @@ class User(UserMixin):
     def __init__(self, userId):
         self.id = userId
         if userId == 'jainsushma':
-            self.role = "reader"
-        else: 
             self.role = "writer"
+        else: 
+            self.role = "reader"
 
 def create_app():
     app = Flask(__name__)
