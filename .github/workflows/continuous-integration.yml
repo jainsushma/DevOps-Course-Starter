@@ -35,6 +35,7 @@ jobs:
         TF_VAR_CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
         TF_VAR_CLIENT_ID: ${{secrets.CLIENT_ID}}
         TF_VAR_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        TF_VAR_LOGGLY_TOKEN: ${{ secrets.LOGGLY_TOKEN }}
 
     needs: build
     # if: github.ref == 'refs/heads/master' # include this line if you want to limit the deployment to the master branch
