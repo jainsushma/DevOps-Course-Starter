@@ -134,7 +134,6 @@ CLIENT=[Your Connection String Here]
 To-Do App is using GitHub for linking to default OAuth provider to manage user access. Users will now be redirected to github to sign and access the application. You will need to register your application with OAuth provider and populate your .env file with the enviroment variables found in the .env.template with the values taken from Github OAuth. Users with "read" access will not be allowed to add, update or delete the tasks in the app.
 
 ## Send logs to Loggly
-- sudo pip install loggly-python-handler
 - poetry add loggly-python-handler //To add the dependecy pyproject.toml
 
 ## CI/CD Using Github Actions & Azure

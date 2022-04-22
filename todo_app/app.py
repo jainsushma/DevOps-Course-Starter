@@ -75,7 +75,7 @@ def create_app():
         @wraps(func)
         def wrapTheFunction(*args, **kwargs): 
             if (not loginDisabled and current_user.role == "reader"):
-                app.logger.info(f"Insufficient User Rights")
+                app.logger.warn(f"Insufficient User Rights")
                 return render_template("error.html", error="Insufficient User Rights") 
             return func(*args, **kwargs)    
         return wrapTheFunction
