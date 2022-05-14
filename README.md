@@ -106,6 +106,7 @@ Github Actions will run builds on branches after every push command. It will run
  - heroku login
  - heroku container:login
  - heroku authorizations:create
+
 ## Setup Heroku
 1. Login (or create an account) to Heroku
 2. Create a new app e.g. 'heroku-app-devops'
@@ -131,10 +132,13 @@ CLIENT=[Your Connection String Here]
 ```
 
 ## Linking to OAuth
+```bash
 To-Do App is using GitHub for linking to default OAuth provider to manage user access. Users will now be redirected to github to sign and access the application. You will need to register your application with OAuth provider and populate your .env file with the enviroment variables found in the .env.template with the values taken from Github OAuth. Users with "read" access will not be allowed to add, update or delete the tasks in the app.
-
+```
 ## Send logs to Loggly
+```bash
 - poetry add loggly-python-handler //To add the dependecy pyproject.toml
+```
 
 ## CI/CD Using Github Actions & Azure
 ```bash
@@ -178,4 +182,30 @@ Github Actions will run builds on branches after every push command. It will run
         curl -dH -X POST "$(terraform output webhook_url)"
 - Access Azure web-app at: http://module13-azure-terraform-sj.azurewebsites.net/
 - Update Loggly provisioning using Terraform with main.tf, variables.tf by adding "LOG_LEVEL" and "LOGGLY_TOKEN"
+```
+
+## Running Kubernetes locally(Minikube)
+1. Spinning up a minikube cluster
+    $ minikube start
+2. Build application Docker image by running:
+    docker build --target production --tag todo-app:prod .
+3. Load the above image into minikube's local image 
+    minikube image load todo-app:prod   
+4. Store following secrets into Minikube literals  
+    kubectl create secret generic todo-app-secrets \
+  --from-literal=LOGGLY_TOKEN=****** \
+  --from-literal=SECRET_KEY=****** \
+  --from-literal=DBNAME=****** \
+  --from-literal=CLIENT=****** \
+  --from-literal=CLIENTID=****** \
+  --from-literal=CLIENTSECRET=******
+  CLINENTID and CLIENTSECRET are taken from GITHUB for deploying OAUTH local host app
+  For decoding the secrets, follow https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/
+5.To deploy the application, setup deployment.yaml and run
+    kubectl apply -f deployment.yaml
+6.To deploy the service, setup service.yaml and run
+    kubectl apply -f service.yaml
+7. Link up minikube Service with a port, 5000 on localhost
+    kubectl port-forward service/module-14 5000:5000
+8. Test the application by checking the values in the mongo db     
 ```
