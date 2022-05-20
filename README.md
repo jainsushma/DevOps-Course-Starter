@@ -186,7 +186,15 @@ Github Actions will run builds on branches after every push command. It will run
 
 ## Running Kubernetes locally(Minikube)
 1. Spinning up a minikube cluster
-    $ minikube start
+    Prerequisites
+        We will need following tools
+        • Docker
+            • Docker Desktop (Windows)
+            • Docker Desktop (Mac)
+            • Docker Engine (Linux)
+        • Kubectl
+        • minikube
+    Then run $ minikube start
 2. Build application Docker image by running:
     docker build --target production --tag todo-app:prod .
 3. Load the above image into minikube's local image 
