@@ -51,21 +51,6 @@ jobs:
     - name: Push the Docker image to DockerHub
       run: docker push sjain309/todo-app-prod:latest
 
-    # - name: Pull the Docker image from DockerHub
-    #   run: docker pull sjain309/todo-app-prod
-
-    - name: Tag the Docker image for Heroku
-      run: docker tag sjain309/todo-app-prod registry.heroku.com/heroku-app-devops/web
-
-    - name: Login to Heroku container
-      run: heroku container:login
-
-    - name: Push it to Heroku registry
-      run: docker push registry.heroku.com/heroku-app-devops/web
-
-    - name: Release Heroku container
-      run: heroku container:release web --app heroku-app-devops
-
     - name: Initialize Terraform
       run: terraform init
 
